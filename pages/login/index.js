@@ -4,9 +4,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router'; 
 
 export default function Home() {
-
-  
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -29,9 +26,11 @@ export default function Home() {
   
   return (
     <>
+
       <Head>
         <title>Accueil</title>
       </Head>
+      <p className='text-4xl text-right'>hello world</p>
       <div className={styles.plan}>
         <div className={styles.centerText}>
           <div className={styles.acc}>
