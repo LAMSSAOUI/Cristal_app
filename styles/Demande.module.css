@@ -1,0 +1,156 @@
+.demande{
+    display: block;
+    margin: 8px;
+    border: 1px solid rgb(10, 10, 10);
+    padding:9px;
+    box-sizing: border-box;
+
+}
+.demande label{
+display: block;
+font-weight: 1000;
+font-size: 19px;
+margin:13px 0 ;
+color:rgb(10, 10, 10);
+
+
+}
+
+
+
+  .button6{ 
+    background-color: #1dce46; /* Couleur de fond */
+    border: none; /* Supprime la bordure */
+    color: white; /* Couleur du texte */
+    padding: 5px 32px; /* Rembourrage */
+    text-align: center; /* Alignement du texte */
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; /* Taille de police */
+    margin: 4px 2px; /* Marge */
+    cursor: pointer; /* Curseur au survol */
+    border-radius: 20px;
+    }
+  .titre{
+    display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 20vh; 
+  color:rgb(2, 2, 2);
+  }
+  
+  .centerText {
+    text-align: center;
+}
+.rightAlign {
+  
+  margin-bottom: 10px; /* pour ajouter un peu d'espace entre les champs */
+}
+.plan{
+  
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.descrip{
+  margin: 0 auto;
+  margin-bottom: 50px; /* pour ajouter un peu d'espace entre les champs */
+  
+}
+/* Styles pour les écrans de petite taille (max-width: 600px) */
+@media  screen and (max-width: 600px) {
+  /*  des styles spécifiques aux petits écrans  */
+  .plan {
+    /*  réduire la marge pour l'élément .plan sur les petits écrans */
+    margin: 20px;
+  }
+  .plan {
+    /* le style pour les écrans de taille normale */
+    margin: 20px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .container {
+    background-size: 100% auto;
+  }
+}
+.info{
+  color:rgb(8, 8, 8);
+}
+.descrip {
+  display: block;
+  font-weight: 1000;
+  font-size: 18px;
+  margin: 13px 0; /* Espacement verticalement */
+  text-align: center;
+  color: rgb(0, 0, 0);
+}
+
+/* Ajout de l'espacement entre les éléments .descrip */
+.descrip + .descrip {
+  margin-top: 10px; /* Espacement entre les éléments */
+}
+.background {
+  background-color: #e3e7ee; /* Couleur de fond */
+  padding: 20px; /* Marge intérieure pour séparer le contenu du bord de la page */
+  min-height: 100vh; /* Hauteur minimale de la page pour occuper tout l'espace visible */
+}
+.icone{
+  display: block;
+  margin: 18px;
+  border: 0px ;
+  padding:10px;
+  box-sizing: border-box;
+   margin:13px 0 ;
+  color:rgb(43, 38, 38);
+  margin: 0 auto;
+  background-color: #000000
+}
+.icon{
+  display: block;
+  margin: 18px;
+  border: 0px ;
+  padding:10px;
+  box-sizing: border-box;
+   margin:13px 0 ;
+  color:rgb(43, 38, 38);
+  margin: 0 auto;
+  background-color: #000000
+}
+.container{
+
+  display: block;
+  margin: 18px;
+  border: 1px solid rgb(112, 52, 52);
+  padding:1px;
+  box-sizing: border-box;
+  display: block;
+  font-weight: 600;
+  font-size: 19px;
+   margin:13px 0 ;
+  color:rgb(43, 38, 38);
+  margin: 0 auto;
+  text-align: center;
+  background-color: #f9f9f9;
+  margin-bottom: 10px; /* Ajoute de l'espace en bas de chaque label */
+  box-shadow: 0 2px 4px rgba(1, 0, 0, 0.1);
+  padding: 60px;
+  margin: 0 auto;
+  max-width: 700px;
+}
+.background {
+  background-color: #050506; /* Couleur de fond */
+  padding: 20px; /* Marge intérieure pour séparer le contenu du bord de la page */
+  min-height: 100vh; /* Hauteur minimale de la page pour occuper tout l'espace visible */
+
+}
+
+
+
+
+
+
+

@@ -1,0 +1,58 @@
+.menuContainer {
+    display: flex; /* Utiliser Flexbox pour aligner horizontalement les éléments */
+    justify-content: space-between; /* Espacer les éléments pour qu'ils soient alignés sur les bords */
+    display: flex; /* Utiliser Flexbox pour aligner horizontalement les éléments */
+    justify-content: center; /* Centrer les éléments horizontalement */
+}
+.rightAlign {
+    flex: 1; /* Faire en sorte que cet élément ait la même largeur que les autres */
+    text-align: right; /* Aligner le contenu à droite */
+    display: flex; /* Utiliser Flexbox pour aligner horizontalement les éléments */
+    justify-content: center; /* Centrer les éléments horizontalement */
+}
+.Container {
+    display: flex; /* Utiliser Flexbox pour aligner horizontalement les éléments */
+    justify-content: space-between; /* Espacer les éléments pour qu'ils soient alignés sur les bords */
+    display: flex; /* Utiliser Flexbox pour aligner horizontalement les éléments */
+    justify-content: center; /* Centrer les éléments horizontalement */
+}
+.plan{
+    background-color: rgb(4, 4, 4);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-size: cover; /* Pour couvrir toute la zone */
+    background-position: center; /* Pour centrer l'image */
+
+  }
+  .form {
+    display: block;
+    margin: 18px;
+    border: 1px solid rgb(112, 52, 52);
+    padding:10px;
+    box-sizing: border-box;
+     margin:13px 0 ;
+    color:rgb(43, 38, 38);
+    margin: 0 auto;
+    background-color: #0b0a0a;
+    
+}
+.icon{
+    display: block;
+    margin: 18px;
+    border: 0px ;
+    padding:10px;
+    box-sizing: border-box;
+     margin:13px 0 ;
+    color:rgb(43, 38, 38);
+    margin: 0 auto;
+    background-color: #000000
+    
+}
+.icon{
+    font-size: 20px;
+    color: rgb(253, 253, 253);
+}

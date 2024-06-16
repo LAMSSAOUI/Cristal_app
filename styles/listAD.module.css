@@ -1,0 +1,177 @@
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    padding: 8px;
+    border: 1px solid #0a0909;
+    text-align: left;
+    background-color: #efebeb;
+    font-weight: bold;
+}
+.button6{
+    background-color: #b2afaf; /* Couleur de fond */
+    border: none; /* Supprime la bordure */
+    color: rgb(2, 2, 2); /* Couleur du texte */
+    padding: 1px 12px; /* Rembourrage */
+    text-align: center; /* Alignement du texte */
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px; /* Taille de police */
+    font-weight: 600;
+    margin: 1px 1px; /* Marge */
+    cursor: pointer; /* Curseur au survol */
+    border-radius: 60px; 
+}
+.button7{
+    background-color: #b2afaf; /* Couleur de fond */
+    border: none; /* Supprime la bordure */
+    color: rgb(0, 0, 0); /* Couleur du texte */
+    padding: 1px 12px; /* Rembourrage */
+    text-align: center; /* Alignement du texte */
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px; /* Taille de police */
+    font-weight: 600;
+    margin: 1px 1px; /* Marge */
+    cursor: pointer; /* Curseur au survol */
+    border-radius: 60px; 
+}
+.liste{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 20vh;
+    color: #ccc;
+}
+.recherche{
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    margin-right: 8px;
+    padding: 6px 26px;
+   
+    color: #c5baba;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 1000px;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 10000px;
+  }
+  
+.input{
+    padding: 8px;
+    border: 1px ;
+    border-radius: 5px;
+    margin-left: 1px;
+    width: 100%;
+    font-size: 10px;
+    width: 700px; /* Définir la largeur de l'input */
+    height: 25px;
+    margin: 0 auto;
+}
+  .rightAlign {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .button4{
+    background-color: #fafafa; /* Couleur de fond */
+    border: none; /* Supprime la bordure */
+    color: rgb(249, 244, 244); /* Couleur du texte */
+    padding: 1px 2px; /* Rembourrage */
+    text-align: center; /* Alignement du texte */
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px; /* Taille de police */
+    margin: 1px 1px; /* Marge */
+    cursor: pointer; /* Curseur au survol */
+    border-radius: 20px; 
+}
+  .button{
+    background-color: #b2afaf; /* Couleur de fond */
+    border: none; /* Supprime la bordure */
+    color: rgb(0, 0, 0); /* Couleur du texte */
+    padding: 1px 12px; /* Rembourrage */
+    text-align: center; /* Alignement du texte */
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px; /* Taille de police */
+    font-weight: 600;
+    margin: 1px 1px; /* Marge */
+    cursor: pointer; /* Curseur au survol */
+    border-radius: 60px; 
+  }
+  .menu{
+    display: block;
+    border: 0px solid rgb(112, 52, 52);
+    display: block;
+     margin:23px 0 ;
+    color:rgb(244, 238, 238);
+    
+    
+   
+    margin-bottom: 100px; 
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 1200px;
+    width: 10000px;
+  }
+  .body{
+    background-color: silver;
+    background-size: cover; /* Pour couvrir toute la zone */
+    background-position: center; /* Pour centrer l'image */
+  }
+  
+.background {
+  background-color: #000000; /* Couleur de fond */
+  padding: 20px; /* Marge intérieure pour séparer le contenu du bord de la page */
+  min-height: 100vh; /* Hauteur minimale de la page pour occuper tout l'espace visible */
+}
+.centerText {
+  text-align: center;
+}
+.container {
+  position: relative;
+}
+
+.recherche{
+  display: block;
+  margin: 10px;
+  border: 0px ;
+  padding:10px;
+  box-sizing: border-box;
+   margin: 20px 0 ;
+  color:rgb(43, 38, 38);
+  margin: 0 auto;
+  
+  
+}
+.icon{
+  display: block;
+  margin: 18px;
+  border: 0px ;
+  padding:10px;
+  box-sizing: border-box;
+   margin:13px 0 ;
+  color:rgb(43, 38, 38);
+  margin: 0 auto;
+  background-color: hwb(0 63% 36%)
+}
+.table{
+  width: 100%;
+  border: 1px solid #50585f;
+  border-collapse: collapse;
+  margin-top: 5px;
+}
+.thead{
+  background-color: #565c62;
+  color: #fff;
+  width: 150%;
+}
+.th{
+  padding: 16px 24px;
+  text-align: left;
+}

@@ -1,0 +1,90 @@
+.button5{
+    background-color: #ec1414; /* Couleur de fond */
+    border: none; /* Supprime la bordure */
+    color: rgb(248, 247, 247); /* Couleur du texte */
+    padding: 1px 2px; /* Rembourrage */
+    text-align: center; /* Alignement du texte */
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px; /* Taille de police */
+    margin: 2px 2px; /* Marge */
+    cursor: pointer; /* Curseur au survol */
+    border-radius: 20px; 
+}
+.liste{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 20vh;
+}
+
+    .table{
+      width: 100%;
+      border-collapse: collapse;
+      padding: 8px;
+      border: 1px solid #0a0909;
+      text-align: left;
+      background-color: #efebeb;
+      font-weight: bold;
+  }
+  .body{
+    width: 100%;
+      border-collapse: collapse;
+      padding: 10px;
+      border: 1px solid #0a0909;
+      text-align: left;
+      background-color: #efebeb;
+      font-weight: bold;
+  }
+  .rightAlign {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px; /* pour ajouter un peu d'espace entre les champs */
+  }
+  
+  @media only screen and (max-width: 600px) {
+    /* Ajoutez des styles spécifiques aux petits écrans ici */
+    .liste {
+     /* style : réduire la taille de la police pour l'élément .liste sur les petits écrans */
+      font-size: 14px;
+    }
+    .liste {
+        /* le style pour les écrans de taille normale */
+        font-size: 16px;
+      }
+  }
+  .background {
+    background-color: #faf7f7; /* Couleur de fond */
+    padding: 20px; /* Marge intérieure pour séparer le contenu du bord de la page */
+    min-height: 100vh; /* Hauteur minimale de la page pour occuper tout l'espace visible */
+  }
+  .centerText {
+    text-align: center;
+}
+.icon{
+  display: block;
+  margin: 18px;
+  border: 0px ;
+  padding:10px;
+  box-sizing: border-box;
+   margin:13px 0 ;
+  color:rgb(43, 38, 38);
+  margin: 0 auto;
+  background-color: #0a0909;
+}
+.table{
+  width: 100%;
+  border: 1px solid #000000;
+  border-collapse: collapse;
+  margin-top: 5px;
+}
+.thead{
+  background-color: #000000;
+  color: #fff;
+  width: 150%;
+}
+.th{
+  padding: 16px 24px;
+  text-align: left;
+}
