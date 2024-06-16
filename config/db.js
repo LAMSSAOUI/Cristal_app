@@ -1,15 +1,41 @@
-// const mysql = require("mysql");
+const mysql = require('mysql2');
 
-// // Créer une pool de connexions
-// const db = mysql.createconnection({
-//     connectionLimit: 10, // Limite le nombre de connexions
-//     host: "localhost",
-//     user: "root",
-//     password: "meriem2001",
-//     database: "iam"
-// });
+let pool = null;
 
-// db.connect(function(err) { 
-//       if (err) throw err; 
-//         console.log("Connecté à la base de données MySQL!");
-//      });
+
+const createPool = () => {
+  pool = mysql.createPool({
+    host: process.env.MYSQL_HOST,
+    database: process.env.MYSQL_DATABASE,
+    user: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    port: process.env.MYSQL_PORT,
+    waitForConnections: true,
+    connectionLimit: 200,
+    queueLimit: 0
+  });
+};
+
+createPool(); // Initial creation of the pool
+
+export function executeQuery(query, values = []) {
+  return new Promise((resolve, reject) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        console.error(err);
+        reject(err);
+        return;
+      }
+
+      connection.query(query, values, function (error, results, fields) {
+        const [r , f] = [results, fields];
+        if (error) {
+          reject(error);
+        } else {
+          pool.releaseConnection(connection);
+          resolve([r, f]);
+        }
+      });
+    });
+  });
+}
