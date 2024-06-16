@@ -23,8 +23,7 @@ export default function Home() {
     } else {
       alert('Nom d\'utilisateur ou mot de passe incorrect');
     }
-  };
-  
+  }; 
   return (
     <>
       <Head>
