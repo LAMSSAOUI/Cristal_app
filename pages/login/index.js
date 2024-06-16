@@ -10,20 +10,32 @@ export default function Home() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter(); // Utilisation de useRouter pour accéder à l'objet de routage
 
-  const handleLogin = () => {
-    // Vérifiez si le nom d'utilisateur et le mot de passe sont valides
-    if ((username === 'user1' && password === '123') || (username === 'admin' && password === '456')) { // Ajouter les informations de l'administrateur
-      setIsLoggedIn(true);
-      // Redirection vers la page demandée après la connexion réussie
-      if(username === 'admin') {
-        router.push('/listAD'); // Si l'utilisateur est admin, rediriger vers la page listAD
+  const handleLogin = async () => {
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (res.ok) {
+        const result = await res.json();
+        console.log('the response is', result)
+        if (result.role === 'admin') {
+          router.push('/liste_demande');
+        } else {
+          router.push('/home');
+        }
+        setIsLoggedIn(true);
       } else {
-        router.push('/menu'); // Sinon, rediriger vers la page demande
+        alert('Nom d\'utilisateur ou mot de passe incorrect');
       }
-    } else {
-      alert('Nom d\'utilisateur ou mot de passe incorrect');
+    } catch (error) {
+      console.error('An unexpected error occurred:', error);
     }
-  }; 
+  };
   return (
     <>
       <Head>
