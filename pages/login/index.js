@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../../styles/Home.module.css';
 import Head from 'next/head';
 import { useRouter } from 'next/router'; 
+import Image from 'next/image';
 
 export default function Home() {
   const [username, setUsername] = useState('');
@@ -26,70 +27,41 @@ export default function Home() {
   
   return (
     <>
-
       <Head>
         <title>Accueil</title>
       </Head>
-      <p className='text-4xl text-right'>hello world</p>
-      <div className={styles.plan}>
-        <div className={styles.centerText}>
-          <div className={styles.acc}>
-            <h1>Identity Access Management</h1>
-            <img src="/images/icone.jpg" alt="" width={100} height={100}/>
-          </div>
+      <div className='flex flex-col items-center justify-center min-h-screen gap-16'>
+        <div className='flex flex-col gap-3 items-center '>
+            <Image 
+                src="/images/logo1.jpg" 
+                alt="" 
+                width={270} 
+                height={270}
+            />
+            <h1 className='text-xl'>Identity Access Management</h1>
         </div>
-        <div className={styles.accueil}>
-          <label>Name: </label>
-          <br />
-          <br />
+        <div className='flex flex-col gap-4'>
           <input
             type="text"
-            placeholder="Nom d'utilisateur..."
+            placeholder="Enter your username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            className='p-1 w-96 outline-none border-gray-300 border-2 rounded-lg pl-3 '
           />
-          <br /> <br />
-          <label>Mot de passe:</label> <br /> <br />
           <input
             type="password"
-            placeholder="Votre mot de passe"
+            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className='p-1 w-96 outline-none border-gray-300 border-2 rounded-lg pl-3 '
           />
-          <br /> <br />
           {!isLoggedIn && (
-            <div className={styles.button3}>
-              <button className={styles.button3} onClick={handleLogin}>
-                Se Connecter
+              <button  onClick={handleLogin} className='p-1 w-96 outline-none border-black border-2 text-center text-sm font-semibold'>
+                Login
               </button>
-            </div>
           )}
         </div>
       </div>
-
-      <style jsx>{`
-                .plan {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  justify-content: center;
-                  height: 100vh;
-                }
-        
-                .accueil {
-                  width: 400px;
-                  padding: 20px;
-                  border: 1px solid #ccc;
-                  border-radius: 8px;
-                }
-        
-                @media (max-width: 768px) {
-                  .accueil {
-                    width: 90%;
-                  }
-                }
-        
-      `}</style>
     </>
   );
 }
