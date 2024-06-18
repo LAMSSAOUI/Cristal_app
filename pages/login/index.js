@@ -24,9 +24,15 @@ export default function Home() {
         const result = await res.json();
         console.log('the response is', result)
         if (result.role === 'admin') {
-          router.push('/liste_demande');
+          router.push({
+            pathname: '/liste_demande',
+            query: { user_id: result.id , username : result.username }, 
+          });
         } else {
-          router.push('/home');
+          router.push({
+            pathname: '/home',
+            query: { user_id: result.id , username : result.username }, 
+          });
         }
         setIsLoggedIn(true);
       } else {

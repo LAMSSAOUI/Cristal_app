@@ -1,7 +1,8 @@
-import React , {useState} from 'react'
+import React , {useEffect, useState} from 'react'
 import Navbar from '../../components/Navbar'; 
 import InformationDemande from '../../components/InformationDemande';
 import DescriptionDemande from '../../components/DescriptionDemande';
+import { useRouter } from 'next/router';
 
 const index = () => {
   const [demande, setDemande] = useState('');
@@ -18,6 +19,18 @@ const index = () => {
   const [dateDesactivation, setDateDesactivation] = useState('');
   const [domaine, setDomaine] = useState('');
   const [roleFonctionnel, setRoleFonctionnel] = useState('');
+  const [username, setUsername] = useState('');
+  const [user_id, setUser_id] = useState('');
+  const router = useRouter();
+
+  useEffect(() => {
+    const { username,  user_id} = router.query;
+    if (username && user_id) {
+      setUsername(username);
+      setUser_id(user_id);
+    }
+  }, [router.query]);
+  console.log('the user id in home is ', user_id)
 
 
   const DemandeList = ['Nouvelle Demande', 'Modification', 'Desactivation'];
@@ -73,7 +86,8 @@ const index = () => {
       siteAffectation,
       dateDesactivation,
       domaine,
-      roleFonctionnel
+      roleFonctionnel,
+      user_id
     };
 
     // Example of API call (replace with your actual API endpoint and method)
@@ -99,7 +113,7 @@ const index = () => {
 
   return (
     <div className='flex flex-col gap-5 mb-48'>
-        <Navbar />
+        <Navbar username={username} user_id={user_id} />
         <div className='text-center text-2xl'>Gestion des acces SAP / SAGE ERP X3 / BI</div>
         <div className='flex  justify-center'>
           <div className=' border-2 border-black flex justify-around w-10/12 rounded-md '>

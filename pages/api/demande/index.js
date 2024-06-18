@@ -17,14 +17,22 @@ export default async function handler(req, res) {
       res.status(500).json({ message: 'Internal server error' });
     }
   } else if (req.method === 'GET') {
+
     try {
-      const formData = await getAllFormDataFromDatabase();
-      res.status(200).json(formData);
-    } catch (error) {
-      console.error('Error in GET API handler:', error);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-  } else {
+        const { user_id } = req.query;
+  
+        if (user_id != 2) {
+          const userDemands = await getUserDemandsFromDatabase(user_id);
+          res.status(200).json(userDemands);
+        } else {
+          const formData = await getAllFormDataFromDatabase();
+          res.status(200).json(formData);
+        }
+      } catch (error) {
+        console.error('Error in GET API handler:', error);
+        res.status(500).json({ message: 'Internal server error' });
+      }
+    } else {
     res.setHeader('Allow', ['POST', 'GET']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
@@ -43,11 +51,18 @@ export async function saveFormDataToDatabase(formData) {
     dateActivation,
     nomBeneficiaire,
     adresseEmail,
-    siteAffectation,
     dateDesactivation,
     domaine,
-    roleFonctionnel
+    roleFonctionnel,
+    user_id
   } = formData;
+  console.log('the user id is ', user_id)
+
+  const userId = Number(user_id);
+
+  if (typeof userId !== 'number') {
+    throw new Error('Invalid user_id: expected number');
+  }
 
   try {
     // Construct your SQL query to insert data into your database table
@@ -65,8 +80,9 @@ export async function saveFormDataToDatabase(formData) {
         adresse_email,
         date_desactivation,
         domaine,
-        role_fonctionnel
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        role_fonctionnel,
+        user_id
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     
     // Execute the query with the data passed from the function parameter
@@ -81,10 +97,10 @@ export async function saveFormDataToDatabase(formData) {
         dateActivation,
         nomBeneficiaire,
         adresseEmail,
-        siteAffectation,
         dateDesactivation,
         domaine,
-        roleFonctionnel
+        roleFonctionnel,
+        userId
     ]);
 
     return { success: true, message: 'Data saved successfully' };
@@ -97,14 +113,30 @@ export async function saveFormDataToDatabase(formData) {
 
 export async function getAllFormDataFromDatabase() {
     try {
-      const sqlQuery = `
+        const sqlQuery = `
         SELECT * FROM demande
-      `;
-      
-      const [results, fields] = await executeQuery(sqlQuery);
-      return results;
+        `;
+        
+        const [results, fields] = await executeQuery(sqlQuery);
+        return results;
     } catch (error) {
-      console.error('Error fetching data:', error);
-      throw error; // Propagate the error to the caller
+        console.error('Error fetching data:', error);
+        throw error; // Propagate the error to the caller
     }
-  }
+}
+
+export async function getUserDemandsFromDatabase(user_id) {
+    try {
+        console.log('the user id in get ', user_id)
+        const sqlQuery = `
+        SELECT * FROM demande WHERE user_id = ?
+        `;
+        
+        const [results, fields] = await executeQuery(sqlQuery, [user_id]);
+        return results;
+    } catch (error) {
+        console.error('Error fetching user data:', error);
+        throw error; // Propagate the error to the caller
+    }
+}
+  

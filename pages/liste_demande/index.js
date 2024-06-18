@@ -1,20 +1,35 @@
 import Navbar from '../../components/Navbar';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 const Index = () => {
+  const router = useRouter();
   const [demandes, setDemandes] = useState([]);
+  const [user_id, setUser_id] = useState('');
+  
+  useEffect(() => {
+    
+    const {user_id} = router.query;
+    if (user_id) {
+      setUser_id(user_id);
+    }
+  }, [router.query]);
+
+  console.log('the users id is ', user_id);
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/demande')  // Replace with your actual API endpoint
-      .then(response => response.json())
-      .then(data => {
-        setDemandes(data); 
-        console.log('this is data', demandes) 
-      })
-      .catch(error => {
-        console.error('Error fetching demandes:', error);
-      });
-  }, []);
+    if (user_id) {
+      fetch(`http://localhost:3000/api/demande?user_id=${user_id}`)
+        .then(response => response.json())
+        .then(data => {
+          setDemandes(data); 
+          console.log('Fetched demandes:', data);
+        })
+        .catch(error => {
+          console.error('Error fetching demandes:', error);
+        });
+    }
+  }, [user_id]);
 
   return (
     <div className='flex flex-col gap-10'>

@@ -1,14 +1,15 @@
 CREATE DATABASE lesieur;
 use lesieur;
 CREATE TABLE users (
-    id SERIAL PRIMARY KEY,
+    id INT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE demande (
-    id SERIAL PRIMARY KEY,
+    id INT PRIMARY KEY,
+    user_id INT NOT NULL,
     demande VARCHAR(255)  NOT NULL,
     prenom_benificier VARCHAR(255) NOT NULL,
     fonction_benificier VARCHAR(255) NOT NULL,
@@ -22,7 +23,8 @@ CREATE TABLE demande (
     application_demandee VARCHAR(255) NOT NULL,
     domaine VARCHAR(255) NOT NULL,
     role_fonctionnel VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 INSERT INTO users (username, password, role, created_at) VALUES ('admin', 'admin_password_hash',  'admin', CURRENT_TIMESTAMP);
