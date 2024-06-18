@@ -6,10 +6,16 @@ const DescriptionDemande = () => {
         <div className='text-center text-xl text-blue-500 mt-7'>Description de la Demande</div>
         <div className='flex flex-row gap-48'>
             <div className='flex-1/2 pl-5'>Application demandee</div>
-            <input
-                type="text"
-                className=' w-96 outline-none border-gray-300 border-2 rounded-md pl-3  '
-            />
+                            <select 
+                               id="selectOptions" 
+                               className="w-80 outline-none border-gray-300 border-2 rounded-lg pl-3"
+                               value={demande} 
+                               onChange={handleDemandeChange} 
+                            >
+                                  {DemandeList.map((option, index) => (
+                                    <option key={index} value={option}>{option}</option>
+                                  ))}
+                            </select>
         </div>
         <div className='flex flex-row justify-between'>
             <div className='flex flex-row gap-4 '>
