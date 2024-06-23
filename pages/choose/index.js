@@ -1,53 +1,73 @@
-import React, { useState } from 'react'
-import Navbar from '../../components/Navbar'
+import React, { useEffect, useState } from 'react';
+import Navbar from '../../components/Navbar';
 import { useRouter } from 'next/router';
 
-const index = () => {
-    const router = useRouter();
-    const [path , setPath] = useState('')
+const Index = () => {
+  const router = useRouter();
+  const [path, setPath] = useState('');
+  const [username, setUsername] = useState('');
+  const [user_id, setUser_id] = useState('');
 
-    const handleAppliquerClick = () => {
-        router.push(`/${path}`); // Replace with your actual supprimer page URL
-      };
+
+
+  useEffect(() => {
+    const { username,  user_id} = router.query;
+    if (username && user_id) {
+      setUsername(username);
+      setUser_id(user_id);
+    }
+  }, [router.query]);
+
+  const handleAppliquerClick = () => {
+    router.push({
+        pathname: `/${path}`,
+        query: { user_id: user_id, username : username }, 
+      });
+  };
+
   return (
     <div>
-        <header className='sticky top-0 z-50'><Navbar /></header>
-        <div class="flex  w-screen items-center justify-center bg-gray-100 p-5">
-            <div class="flex w-[36rem] flex-col rounded-2xl bg-white px-6 shadow-2xl sm:px-14">
-                <div class="flex w-full justify-between self-start pt-12 pb-8">
-                <h2 class="font-serif text-2xl font-semibold text-gray-700">Choose what you want</h2>
-                </div>
-                <div class="flex w-full flex-col pb-8 pt-4">
-                <div class="relative mb-4">
-                    <input class="peer hidden" id="radio_1" type="radio" name="radio" onClick={() => setPath('supprimer')}  />
-                    <span class="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>
-                    <label class="flex cursor-pointer flex-col rounded-2xl border border-gray-300 bg-slate-100/80 p-4 pr-8 sm:pr-16" for="radio_1">
-                    <span class="mb-2 text-lg font-semibold">Supprimer</span>
-                      <p class="text-sm sm:text-base">Si vous avez cliquer sur Supprimer vous allez supprimer la demande</p>
-                    </label>
-                </div>
-                <div class="relative mb-4">
-                    <input class="peer hidden" id="radio_2" type="radio" name="radio"  onClick={() => setPath('modifier')}/>
-                    <span class="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>
-                    <label class="flex cursor-pointer flex-col rounded-2xl border border-gray-300 bg-slate-100/80 p-4 pr-8 sm:pr-16" for="radio_2">
-                    <span class="mb-2 text-lg font-semibold">Modifier</span>
-                     <p class="text-sm sm:text-base">Si vous avez cliquer sur Modifier vous allez modifier la demande</p>
-                    </label>
-                </div>
-                <div class="my-4 space-y-3">
-                    <label for="terms" class="flex space-x-4">
-                    <input id="terms" name="terms" type="checkbox" class="h-6 w-6 shrink-0 accent-gray-900" checked />
-                    <span id="terms-description" class="text-sm text-gray-600">I agree to the <a class="underline" href="#">Terms and Conditions</a>. Learn about our Privacy Policy and our measures to keep your data safe and secure.</span>
-                    </label>     
-                </div>
-
-                <button class="my-2 rounded-md bg-gray-900 py-3 font-medium text-white" onClick={handleAppliquerClick}>Appliquer</button>
-                </div>
+      <header className='sticky top-0 z-50'><Navbar /></header>
+      <div className="flex w-screen-[30px] items-center justify-center bg-gray-100 p-17 h-screen">
+        <div className="flex w-[37rem] flex-col rounded-2xl bg-white px-6 shadow-2xl sm:px-14">
+          <div className="flex w-full justify-between self-start pt-12 pb-8">
+            <h2 className="font-serif text-2xl font-semibold text-gray-700">Choose what you want</h2>
+          </div>
+          <div className="flex w-full flex-col pb-8 pt-4">
+            <div className="relative mb-4">
+              <input className="peer hidden" id="radio_supprimer" type="radio" name="radio" onClick={() => setPath('supprimer')} />
+              <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>
+              <label className="flex cursor-pointer flex-col rounded-2xl border border-gray-300 bg-slate-100/80 p-4 pr-8 sm:pr-16" htmlFor="radio_supprimer">
+                <span className="mb-2 text-lg font-semibold">Supprimer</span>
+              </label>
             </div>
+            <div className="relative mb-4">
+              <input className="peer hidden" id="radio_modifier" type="radio" name="radio" onClick={() => setPath('modifier')} />
+              <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>
+              <label className="flex cursor-pointer flex-col rounded-2xl border border-gray-300 bg-slate-100/80 p-4 pr-8 sm:pr-16" htmlFor="radio_modifier">
+                <span className="mb-2 text-lg font-semibold">Modifier</span>
+              </label>
+            </div>
+            <div className="relative mb-4">
+              <input className="peer hidden" id="radio_sap" type="radio" name="radio" onClick={() => setPath('demandeSap')} />
+              <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>
+              <label className="flex cursor-pointer flex-col rounded-2xl border border-gray-300 bg-slate-100/80 p-4 pr-8 sm:pr-16" htmlFor="radio_sap">
+                <span className="mb-2 text-lg font-semibold">Creation demande SAP</span>
+              </label>
+            </div>
+            <div className="relative mb-4">
+              <input className="peer hidden" id="radio_sage" type="radio" name="radio" onClick={() => setPath('demandeSage')} />
+              <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>
+              <label className="flex cursor-pointer flex-col rounded-2xl border border-gray-300 bg-slate-100/80 p-4 pr-8 sm:pr-16" htmlFor="radio_sage">
+                <span className="mb-2 text-lg font-semibold">Creation demande SAGE</span>
+              </label>
+            </div>
+            <button className="my-2 rounded-md bg-gray-900 py-3 font-medium text-white" onClick={handleAppliquerClick}>Appliquer</button>
+          </div>
         </div>
-
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default index
+export default Index;

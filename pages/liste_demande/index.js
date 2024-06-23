@@ -46,7 +46,7 @@ const Index = () => {
           <div  className='w-2/12' >Numero de la demande</div>
           <div  className='w-2/12'>Date de creation</div>
           <div  className='w-2/12'>Nom du benificiaire</div>
-          <div  className='w-2/12'>Type de Profil</div>
+          <div  className='w-2/12'>Type de demande</div>
           {/* <div  className='w-2/12'>Niveau de Traitement</div> */}
           {/* <div  className='grow-1'>Action</div> */}
           <div  className='grow text-center'>Actions</div>
@@ -60,7 +60,7 @@ const Index = () => {
             <div  className='w-2/12'>{demande.id}</div>
             <div  className='w-2/12'>{demande.created_at}</div>
             <div  className='w-2/12'>{demande.nom_benificier}</div>
-            <div  className='w-2/12'>{demande.type_profil}</div>
+            <div  className='w-2/12'>{demande.application_demandee}</div>
             {/* <div  className='w-2/12'>{demande.niveauTraitement}</div> */}
             {/* <div  className=''>{demande.dateTraitement}</div> */}
             <div  className='bg-black text-white rounded px-4 py-2 cursor-pointer' onClick={() => handleModifierClick(demande.id)}>Modifier</div> 
