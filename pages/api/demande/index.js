@@ -40,6 +40,56 @@ export default async function handler(req, res) {
     } else if (req.method === 'DELETE') {
       // Handle DELETE request using a separate function
       await handleDeleteRequest(req, res);
+    } else if (req.method === 'PUT') {
+      // Handle PUT request for updating demande
+      try {
+        const { demande_id } = req.query;
+        const updatedData = req.body;
+  
+        // Check if demande_id is provided
+        if (!demande_id) {
+          return res.status(400).json({ message: 'Demande ID is required' });
+        }
+  
+        // Check if demande exists
+        const existingDemande = await getDemandeById(demande_id);
+        if (!existingDemande) {
+          return res.status(404).json({ message: 'Demande not found' });
+        }
+  
+        // Construct SQL query for updating demande
+        const updateQuery = `
+          UPDATE demande
+          SET demande = ?, direction_affectation = ?, societe = ?, application_demandee = ?,
+              prenom_benificier = ?, fonction_benificier = ?, type_profil = ?, date_activation = ?,
+              nom_benificier = ?, adresse_email = ?, date_desactivation = ?, domaine = ?, role_fonctionnel = ?
+          WHERE id = ?
+        `;
+  
+        // Execute the update query
+        const result = await executeQuery(updateQuery, [
+          updatedData.demande,
+          updatedData.direction_affectation,
+          updatedData.societe,
+          updatedData.application_demandee,
+          updatedData.prenom_benificier,
+          updatedData.fonction_benificier,
+          updatedData.type_profil,
+          updatedData.date_activation,
+          updatedData.nom_benificier,
+          updatedData.adresse_email,
+          updatedData.date_desactivation,
+          updatedData.domaine,
+          updatedData.role_fonctionnel,
+          demande_id
+        ]);
+          res.status(200).json({ message: 'Demande updated successfully' });
+        
+  
+      }catch (error) {
+        console.error('Error updating demande:', error);
+        res.status(500).json({ message: 'Internal server error' });
+      }
     } else {
     res.setHeader('Allow', ['POST', 'GET']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
