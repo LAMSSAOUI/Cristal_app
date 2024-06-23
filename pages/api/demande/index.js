@@ -19,9 +19,17 @@ export default async function handler(req, res) {
   } else if (req.method === 'GET') {
 
     try {
-        const { user_id } = req.query;
-  
-        if (user_id != 2) {
+        const { user_id , demande_id} = req.query;
+
+
+        if (demande_id) {
+          const demande = await getDemandeById(demande_id);
+          if (demande) {
+            res.status(200).json(demande);
+          } else {
+            res.status(404).json({ message: 'Demande not found' });
+          }
+        }if (user_id != 2) {
           const userDemands = await getUserDemandsFromDatabase(user_id);
           res.status(200).json(userDemands);
         } else {
@@ -138,5 +146,22 @@ export async function getUserDemandsFromDatabase(user_id) {
         console.error('Error fetching user data:', error);
         throw error; // Propagate the error to the caller
     }
+}
+async function getDemandeById(demande_id) {
+  try {
+    
+    const sqlQuery = `SELECT * FROM demande WHERE id = ?`;
+    const [results, fields] = await executeQuery(sqlQuery, [demande_id]);
+
+
+    if (results.length > 0) {
+      return results[0];
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error('Database error:', error);
+    throw error;
+  }
 }
   

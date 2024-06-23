@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 const Index = () => {
   const router = useRouter();
   const [path, setPath] = useState('');
-  const [username, setUsername] = useState('');
   const [user_id, setUser_id] = useState('');
   const [demande , setDemandeId]=useState('');
 
