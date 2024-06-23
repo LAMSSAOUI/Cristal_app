@@ -17,6 +17,12 @@ const Index = () => {
 
   console.log('the users id is ', user_id);
 
+  const handleDetailsClick = (id) => {
+    router.push(`/details?id=${id}`);
+  };
+  const handleModifierClick = (id) => {
+    router.push(`/choose?id=${id}`);
+  };
   useEffect(() => {
     if (user_id) {
       fetch(`http://localhost:3000/api/demande?user_id=${user_id}`)
@@ -37,27 +43,28 @@ const Index = () => {
       <div className='text-center text-2xl font-semibold'>Liste des demandes</div>
       <div className='flex justify-center'>
         <div className='flex flex-row items-center bg-black text-white gap-7 w-9/12 p-2 '>
-          <div  className='grow' >Numero de la demande</div>
-          <div  className='grow'>Date de creation</div>
-          <div  className='grow'>Nom du benificiaire</div>
-          <div  className='grow'>Type de Profil</div>
-          <div  className='grow'>Niveau de Traitement</div>
-          <div  className='grow'>Date de Traitement</div>
-          <div  className='grow'>Actions</div>
+          <div  className='w-2/12' >Numero de la demande</div>
+          <div  className='w-2/12'>Date de creation</div>
+          <div  className='w-2/12'>Nom du benificiaire</div>
+          <div  className='w-2/12'>Type de Profil</div>
+          {/* <div  className='w-2/12'>Niveau de Traitement</div> */}
+          {/* <div  className='grow-1'>Action</div> */}
+          <div  className='grow text-center'>Actions</div>
         </div>
       </div>
       
       {/* Render each demande */}
       {demandes.map(demande => (
         <div key={demande.id} className='flex justify-center'>
-          <div className='flex flex-row items-center gap-20 w-9/12 p-2 border-b border-gray-200'>
-            <div  className='w-1/6'>{demande.id}</div>
-            <div  className='w-1/12'>{demande.created_at}</div>
-            <div  className='w-1/12'>{demande.nom_benificier}</div>
-            <div  className='w-1/6'>{demande.type_profil}</div>
-            <div  className='w-1/6'>{demande.niveauTraitement}</div>
-            <div  className=''>{demande.dateTraitement}</div>
-            <div  className='bg-black text-white rounded px-4 py-2'>Actions</div> 
+          <div className='flex flex-row items-center gap-20 w-9/12 p-2 border-b border-gray-200 '>
+            <div  className='w-2/12'>{demande.id}</div>
+            <div  className='w-2/12'>{demande.created_at}</div>
+            <div  className='w-2/12'>{demande.nom_benificier}</div>
+            <div  className='w-2/12'>{demande.type_profil}</div>
+            {/* <div  className='w-2/12'>{demande.niveauTraitement}</div> */}
+            {/* <div  className=''>{demande.dateTraitement}</div> */}
+            <div  className='bg-black text-white rounded px-4 py-2 cursor-pointer' onClick={() => handleModifierClick(demande.id)}>Modifier</div> 
+            <div  className='bg-black text-white rounded px-4 py-2 cursor-pointer' onClick={() => handleDetailsClick(demande.id)}>Details</div> 
           </div>
         </div>
       ))}

@@ -30,7 +30,6 @@ const index = () => {
       setUser_id(user_id);
     }
   }, [router.query]);
-  console.log('the user id in home is ', user_id)
 
 
   const DemandeList = ['Nouvelle Demande', 'Modification', 'Desactivation'];
