@@ -17,11 +17,8 @@ export default async function handler(req, res) {
       res.status(500).json({ message: 'Internal server error' });
     }
   } else if (req.method === 'GET') {
-
     try {
         const { user_id , demande_id} = req.query;
-
-
         if (demande_id) {
           const demande = await getDemandeById(demande_id);
           if (demande) {
@@ -40,6 +37,9 @@ export default async function handler(req, res) {
         console.error('Error in GET API handler:', error);
         res.status(500).json({ message: 'Internal server error' });
       }
+    } else if (req.method === 'DELETE') {
+      // Handle DELETE request using a separate function
+      await handleDeleteRequest(req, res);
     } else {
     res.setHeader('Allow', ['POST', 'GET']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
@@ -162,6 +162,30 @@ async function getDemandeById(demande_id) {
   } catch (error) {
     console.error('Database error:', error);
     throw error;
+  }
+}
+async function handleDeleteRequest(req, res) {
+  const { demande_id } = req.query;
+  console.log('hello', demande_id)
+  try {
+    if (!demande_id) {
+      return res.status(400).json({ message: 'Demande ID is required' });
+    }
+
+    // Check if demande exists
+    const existingDemande = await getDemandeById(demande_id);
+    if (!existingDemande) {
+      return res.status(404).json({ message: 'Demande not found' });
+    }
+
+    // Perform deletion
+    const deleteQuery = `DELETE FROM demande WHERE id = ?`;
+    const result = await executeQuery(deleteQuery, [demande_id]);
+    res.status(200).json({ message: 'Demande deleted successfully' });
+    
+  } catch (error) {
+    console.error('Error deleting demande:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 }
   
