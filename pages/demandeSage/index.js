@@ -51,7 +51,7 @@ export default function demande () {
     
       const handleSaveClick = () => {
         const data = { ...demandeInfo, user_id };
-        fetch('http://localhost:3000/api/demande', {
+        fetch('http://localhost:3000/api/sage', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -73,9 +73,9 @@ export default function demande () {
         setDemandeInfo({
           demande: '',
           date_activation: '',
-          prenom_beneficiaire: '',
+          prenom_benificier: '',
           direction_affectation: '',
-          nom_beneficiaire: '',
+          nom_benificier: '',
           adresse_email: '',
           date_desactivation: '',
         });

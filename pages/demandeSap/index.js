@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar';
 import Image from 'next/image';
 
 export default function Demande() {
+  const [user_id, setUser_id] = useState('');
   const [demandeInfo, setDemandeInfo] = useState({
     demande: '',
     date_activation: '',
@@ -14,7 +15,6 @@ export default function Demande() {
     date_desactivation: '',
   });
   const [username, setUsername] = useState('');
-  const [user_id, setUser_id] = useState('');
 
   const router = useRouter();
 
@@ -46,7 +46,7 @@ export default function Demande() {
 
   const handleSaveClick = () => {
     const data = { ...demandeInfo, user_id };
-    fetch('http://localhost:3000/api/demande', {
+    fetch('http://localhost:3000/api/sap', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -68,9 +68,9 @@ export default function Demande() {
     setDemandeInfo({
       demande: '',
       date_activation: '',
-      prenom_beneficiaire: '',
+      prenom_benificier: '',
       direction_affectation: '',
-      nom_beneficiaire: '',
+      nom_benificier: '',
       adresse_email: '',
       date_desactivation: '',
     });

@@ -33,3 +33,26 @@ INSERT INTO users (username, password, role, created_at) VALUES ('admin', 'admin
 INSERT INTO users (username, password, role, created_at) VALUES ('user1', 'user1_password_hash', 'user', CURRENT_TIMESTAMP);
 
 INSERT INTO users (username, password, role, created_at) VALUES ('user2', 'user2_password_hash',  'user', CURRENT_TIMESTAMP);
+
+CREATE TABLE SAP (
+    id SERIAL PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    demande VARCHAR(255),
+    date_activation VARCHAR(255),
+    prenom_beneficiaire VARCHAR(255),
+    direction_affectation VARCHAR(255),
+    nom_beneficiaire VARCHAR(255),
+    adresse_email VARCHAR(255),
+    date_desactivation VARCHAR(255)
+);
+CREATE TABLE SAGE (
+    id SERIAL PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    demande VARCHAR(255),
+    date_activation VARCHAR(255),
+    prenom_beneficiaire VARCHAR(255),
+    direction_affectation VARCHAR(255),
+    nom_beneficiaire VARCHAR(255),
+    adresse_email VARCHAR(255),
+    date_desactivation VARCHAR(255)
+);
