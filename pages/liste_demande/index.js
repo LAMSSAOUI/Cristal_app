@@ -21,7 +21,10 @@ const Index = () => {
     router.push(`/details?id=${id}`);
   };
   const handleModifierClick = (id) => {
-    router.push(`/choose?id=${id}`);
+    router.push({
+      pathname: '/choose',
+      query: { user_id:user_id , demande_id:id},
+    });
   };
   useEffect(() => {
     if (user_id) {
