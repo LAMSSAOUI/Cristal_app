@@ -38,6 +38,12 @@ const Navbar = () => {
       query: { user_id: user_id }, 
     });
   };
+  const goToComptes = () => {
+    router.push({
+      pathname: '/gestionCompte',
+      query: { user_id: user_id }, 
+    });
+  };
   const handleLogoutClick = () => {
     router.push({
       pathname: '/login',
@@ -56,7 +62,8 @@ const Navbar = () => {
             />
             <div onClick={goToHome} style={{ cursor: 'pointer' }}>Home</div>
             <div  onClick={goToListeDemande} style={{ cursor: 'pointer' }}>Demandes</div>
-            <div  onClick={goToSettings} style={{ cursor: 'pointer' }}>Settings</div>
+            <div  onClick={goToComptes} style={{ cursor: 'pointer' }}>Comptes</div>  
+            <div  onClick={goToSettings} style={{ cursor: 'pointer' }}>Settings</div>  
         </div>   
         <div className='italic'>Identity Access Manager</div>
         <div className='flex flex-row items-center gap-4 italic'>

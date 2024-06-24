@@ -115,7 +115,7 @@ const Index = () => {
 
   return (
     <div className='flex flex-col gap-8'>
-      <Navbar />
+      <Navbar  user_id={user_id}  />
       <div className='text-center text-2xl font-semibold'>Gestion des Utilisateurs</div>
       <div>
         <AddUserModal
