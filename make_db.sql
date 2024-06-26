@@ -56,3 +56,4 @@ CREATE TABLE SAGE (
     adresse_email VARCHAR(255),
     date_desactivation VARCHAR(255)
 );
+ALTER TABLE demande ADD COLUMN isValide BOOLEAN DEFAULT FALSE;

@@ -30,7 +30,7 @@ export default function Home() {
           });
         } else {
           router.push({
-            pathname: '/base',
+            pathname: '/home',
             query: { user_id: result.id , username : result.username }, 
           });
         }

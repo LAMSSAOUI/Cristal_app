@@ -2,14 +2,10 @@ import { executeQuery } from "../../../config/db";
 
 export default async function handler(event, res) {
   switch (event.method) {
-    case "POST":
-      return await addUser(event, res);
     case "GET":
       return await handleGetRequest(event, res);
     case "PUT":
-      return await updateUser(event, res);
-    case "DELETE":
-      return await deleteUser(event, res);
+        return await updatePassword(event, res);   
     default:
       console.log("Method not allowed");
       return res.status(400).send("Method not allowed");
@@ -49,7 +45,7 @@ const getUserById = async (id, res) => {
     console.error(error);
     return res.status(500).json({ message: 'Internal server error' });
   }
-}
+};
 
 const addUser = async (event, res) => {
   const { username, password, role } = event.body;
@@ -78,7 +74,7 @@ const addUser = async (event, res) => {
 const updateUser = async (event, res) => {
   const { id, username, password, role } = event.body;
 
-  if (!id || !username  || !password || !role) {
+  if (!id || !username || !password || !role) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
@@ -93,23 +89,25 @@ const updateUser = async (event, res) => {
   }
 };
 
-const deleteUser = async (event, res) => {
-  const { id } = event.query;
+const updatePassword = async (event, res) => {
+  const { id, newPassword } = event.body;
 
-  if (!id) {
-    return res.status(400).json({ message: 'User ID is required' });
+  if (!id || !newPassword) {
+    return res.status(400).json({ message: 'User ID and new password are required' });
   }
 
   try {
-    const query = `DELETE FROM users WHERE id = ? `;
-    const [results, fields] = await executeQuery(query, [id]);
+    const query = `UPDATE users SET password = ? WHERE id = ?`;
+    const [results, fields] = await executeQuery(query, [newPassword, id]);
 
-    return res.status(200).json({ message: 'User deleted successfully' });
+    return res.status(200).json({ message: 'Password updated successfully' });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
 
 const handleGetRequest = async (event, res) => {
   const { id } = event.query;
@@ -119,6 +117,3 @@ const handleGetRequest = async (event, res) => {
     return await getAllUsers(res);
   }
 };
-
-
-
