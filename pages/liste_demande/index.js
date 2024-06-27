@@ -42,7 +42,7 @@ const Index = () => {
 
   return (
     <div className='flex flex-col gap-10'>
-      <Navbar />
+      <Navbar  user_id={user_id}/>
       <div className='text-center text-2xl font-semibold'>Liste des demandes</div>
       <div className='flex justify-center'>
         <div className='flex flex-row items-center bg-black text-white gap-7 w-9/12 p-2 '>
