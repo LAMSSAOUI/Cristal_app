@@ -8,6 +8,8 @@ const Index = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [id , setUser_id] = useState('');
+    const [username, setUsername] = useState('');
+
   
     useEffect(() => {
       // Example of fetching user data on component mount
@@ -15,19 +17,22 @@ const Index = () => {
     }, []);
 
     useEffect(() => {
-    
-        const {user_id} = router.query;
-        if (user_id) {
+      const { username, user_id } = router.query;
+      if (username && user_id) 
+        {
+          setUsername(username);
           setUser_id(user_id);
         }
       }, [router.query]);
   
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/users?id=${id}`); // Replace with your API endpoint
+        console.log('the id is ', id)
+        const response = await fetch(`http://localhost:3000/api/admin?id=${id}`); // Replace with your API endpoint
         if (response.ok) {
           const data = await response.json();
           setUserData(data);
+          console.log('the user data is', data)
         } else {
           console.error('Failed to fetch user data');
         }
@@ -87,10 +92,9 @@ const Index = () => {
               <p className="font- text-slate-600">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p> 
             </div>
             <hr className="mt-4 mb-8" />
-            <p className="py-2 text-xl font-semibold">Email Address</p>
+            <p className="py-2 text-xl font-semibold">Username</p>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-gray-600">Your email address is <strong>john.doe@company.com</strong></p>
-              <button className="inline-flex text-sm font-semibold text-blue-600 underline decoration-2">Change</button>
+              <p className="text-gray-600">Your username  is <strong>{username}</strong></p>
             </div>
             <hr className="mt-4 mb-8" />
             <p className="py-2 text-xl font-semibold">Password</p>
@@ -100,11 +104,11 @@ const Index = () => {
                   <span className="text-sm text-gray-500">Current Password</span>
                   <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                     <input
-                      type="password"
+                      type="text"
                       id="current-password"
                       className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
                       placeholder="***********"
-                      value={currentPassword}
+                      value={userData && userData.password}
                       onChange={(e) => setCurrentPassword(e.target.value)}
                     />
                   </div>
@@ -113,7 +117,7 @@ const Index = () => {
                   <span className="text-sm text-gray-500">New Password</span>
                   <div className="relative flex overflow-hidden rounded-md border-2 transition focus-within:border-blue-600">
                     <input
-                      type="password"
+                      type="text"
                       id="new-password"
                       className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
                       placeholder="***********"

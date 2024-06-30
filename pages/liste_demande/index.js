@@ -8,7 +8,6 @@ const Index = () => {
   const [user_id, setUser_id] = useState('');
   
   useEffect(() => {
-    
     const {user_id} = router.query;
     if (user_id) {
       setUser_id(user_id);
@@ -42,7 +41,7 @@ const Index = () => {
 
   return (
     <div className='flex flex-col gap-10'>
-      <Navbar  user_id={user_id}/>
+      <Navbar  id={user_id}/>
       <div className='text-center text-2xl font-semibold'>Liste des demandes</div>
       <div className='flex justify-center'>
         <div className='flex flex-row items-center bg-black text-white gap-7 w-9/12 p-2 '>

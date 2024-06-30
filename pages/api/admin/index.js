@@ -35,7 +35,10 @@ export default async function handler(req, res) {
       console.error('Error updating demande:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
-  } else {
+  } else if (req.method === 'GET'){
+    const { id } = req.query;
+    return await getUserById(id, res);
+  }else {
     res.setHeader('Allow', ['PUT']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }
@@ -54,5 +57,19 @@ async function getDemandeById(demande_id) {
   } catch (error) {
     console.error('Database error:', error);
     throw error;
+  }
+}
+
+const getUserById = async (id, res) => {
+  try {
+    const query = `SELECT id, username, password, role FROM users WHERE id = ?`;
+    const [results, fields] = await executeQuery(query, [id]);
+    if (results.length === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    return res.status(200).json(results[0]);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 }
