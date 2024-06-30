@@ -24,11 +24,7 @@ export default async function handler(req, res) {
       }
 
       // Construct SQL query for updating the isValide column
-      const updateQuery = `
-        UPDATE demande
-        SET isValide = ?
-        WHERE id = ?
-      `;
+      const updateQuery = ` UPDATE demande  SET isValide = ? WHERE id = ? `;
 
       // Execute the update query
       const result = await executeQuery(updateQuery, [isValide, demande_id]);

@@ -24,7 +24,7 @@ const Index = () => {
   
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/api/users?id=${id}`); // Replace with your API endpoint
+        const response = await fetch(`http://localhost:3000/api/users?id=${id}`); // Replace with your API endpoint
         if (response.ok) {
           const data = await response.json();
           setUserData(data);
@@ -58,7 +58,7 @@ const Index = () => {
 
   return (
     <div>
-      <header className='sticky top-0 z-50'><Navbar user_id={id}/></header>
+      <header className='sticky top-0 z-50'><Navbar user_id={id} /></header>
       <div className="mx-4 min-h-screen max-w-screen-xl sm:mx-8 xl:mx-auto mt-6">
         <h1 className="border-b py-6 text-4xl font-semibold">Settings</h1>
         <div className="grid grid-cols-8 pt-3 sm:grid-cols-10">

@@ -28,7 +28,7 @@ CREATE TABLE demande (
     
 );
 
-INSERT INTO users (username, password, role, created_at) VALUES ('admin', 'admin_password_hash',  'admin', CURRENT_TIMESTAMP);
+INSERT INTO users (id , username, password, role, created_at) VALUES (2 , 'admin', 'admin_password_hash',  'admin', CURRENT_TIMESTAMP);
 
 INSERT INTO users (username, password, role, created_at) VALUES ('user1', 'user1_password_hash', 'user', CURRENT_TIMESTAMP);
 

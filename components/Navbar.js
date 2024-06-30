@@ -57,10 +57,10 @@ const Navbar = () => {
         <Image src="/images/logoNavbar 1.png" alt="" width={40} height={40} />
         <div onClick={goToHome} style={{ cursor: 'pointer' }}>Home</div>
         <div onClick={goToListeDemande} style={{ cursor: 'pointer' }}>Demandes</div>
+        <div onClick={goToSettings} style={{ cursor: 'pointer' }}>Settings</div>
         {user_id === '2' && (
           <div onClick={goToComptes} style={{ cursor: 'pointer' }}>Comptes</div>
         )}
-        <div onClick={goToSettings} style={{ cursor: 'pointer' }}>Settings</div>
       </div>
       <div className='italic'>Identity Access Manager</div>
       <div className='flex flex-row items-center gap-4 italic'>

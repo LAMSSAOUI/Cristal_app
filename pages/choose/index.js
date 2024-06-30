@@ -31,7 +31,7 @@ const Index = () => {
       <header className='sticky top-0 z-50'><Navbar /></header>
       <div className="flex w-screen-[30px] items-center justify-center bg-gray-100 p-17 h-screen">
         <div className="flex w-[37rem] flex-col rounded-2xl bg-white px-6 shadow-2xl sm:px-14">
-          <div className="flex w-full justify-between self-start pt-12 pb-8">
+          <div className="flex w-full justify-between self-start pt-10 pb-5">
             <h2 className="font-serif text-2xl font-semibold text-gray-700">Choose what you want</h2>
           </div>
           <div className="flex w-full flex-col pb-8 pt-4">
@@ -63,6 +63,13 @@ const Index = () => {
                   <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>
                   <label className="flex cursor-pointer flex-col rounded-2xl border border-gray-300 bg-slate-100/80 p-4 pr-8 sm:pr-16" htmlFor="radio_sage">
                     <span className="mb-2 text-lg font-semibold">Creation demande SAGE</span>
+                  </label>
+                </div>
+                <div className="relative mb-4">
+                  <input className="peer hidden" id="radio_valide" type="radio" name="radio" onClick={() => setPath('valider')} />
+                  <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>
+                  <label className="flex cursor-pointer flex-col rounded-2xl border border-gray-300 bg-slate-100/80 p-4 pr-8 sm:pr-16" htmlFor="radio_valide">
+                    <span className="mb-2 text-lg font-semibold">Valider</span>
                   </label>
                 </div>
               </>

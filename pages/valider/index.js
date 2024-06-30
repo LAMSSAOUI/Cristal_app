@@ -4,11 +4,12 @@ import { useRouter } from 'next/router';
 
 const Index = () => {
     const router = useRouter();
-    const [demandeInfo, setDemandeInfo] = useState(null); // Initialize demandeInfo state with null or undefined
+    const [demandeInfo, setDemandeInfo] = useState(null); 
+    const [Valide , setIsValide] = useState(false)
 
     useEffect(() => {
-        if (router.query.id) {
-            fetch(`http://localhost:3000/api/demande?demande_id=${router.query.id}`)
+        if (router.query.demande_id) {
+            fetch(`http://localhost:3000/api/demande?demande_id=${router.query.demande_id}`)
                 .then(response => response.json())
                 .then(data => {
                     setDemandeInfo(data);
@@ -30,16 +31,16 @@ const Index = () => {
     };
 
     // Function to handle form submission for updating demande
-    const handleUpdate = (e) => {
+    const handleValider = (e) => {
         e.preventDefault();
-
+        setIsValide(true);
+        console.log('is valide is after handleValider ', Valide);    
         // Prepare updated data to send to API
         const updatedData = {
-            ...demandeInfo,
-            demande_id: router.query.demande_id // Ensure demande_id is included for identification
+            isValide: true
         };
-
-        fetch(`http://localhost:3000/api/demande?demande_id=${router.query.demande_id}`, {
+    
+        fetch(`http://localhost:3000/api/admin?demande_id=${router.query.demande_id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,14 +51,14 @@ const Index = () => {
         .then(data => {
             console.log('Demande updated successfully:', data);
             // Optionally, you can redirect or perform any cleanup after update
-            alert('successfully updated ');
+            alert('Successfully updated');
             resetForm();
-            
         })
         .catch(error => {
             console.error('Error updating demande:', error);
         });
     };
+    
     const resetForm = () => {
         setDemandeInfo({
             demande: '',
@@ -81,7 +82,7 @@ const Index = () => {
         <div className=''>
             <header className='sticky top-0 z-50'><Navbar /></header>
             <div className='flex justify-center'>
-                <form className='w-6/12 mt-16 mb-14' onSubmit={handleUpdate}>
+                <form className='w-6/12 mt-16 mb-14' onSubmit={handleValider}>
                     <div className="space-y-12">
                         <div className="border-b border-gray-900/10 pb-12">
                             <h2 className="text-2xl font-semibold leading-7 text-gray-900 mb-2">Demande</h2>
@@ -180,7 +181,10 @@ const Index = () => {
                         </div>
                     </div>
 
-                    
+                    <div className="mt-6 flex items-center justify-end gap-x-6">
+                        <button type="button" className="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+                        <button type="submit" className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Valider</button>
+                    </div>
                 </form>
             </div>
         </div>

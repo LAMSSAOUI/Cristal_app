@@ -25,12 +25,12 @@ export default function Home() {
         console.log('the response is', result)
         if (result.role === 'admin') {
           router.push({
-            pathname: '/liste_demande',
+            pathname: '/base',
             query: { user_id: result.id , username : result.username }, 
           });
         } else {
           router.push({
-            pathname: '/home',
+            pathname: '/base',
             query: { user_id: result.id , username : result.username }, 
           });
         }
