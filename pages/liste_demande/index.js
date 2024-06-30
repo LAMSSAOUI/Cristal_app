@@ -46,11 +46,9 @@ const Index = () => {
       <div className='flex justify-center'>
         <div className='flex flex-row items-center bg-black text-white gap-7 w-9/12 p-2 '>
           <div  className='w-2/12' >Numero de la demande</div>
-          <div  className='w-2/12'>Date de creation</div>
+          <div  className='w-2/12'>Validation</div>
           <div  className='w-2/12'>Nom du benificiaire</div>
           <div  className='w-2/12'>Type de demande</div>
-          {/* <div  className='w-2/12'>Niveau de Traitement</div> */}
-          {/* <div  className='grow-1'>Action</div> */}
           <div  className='grow text-center'>Actions</div>
         </div>
       </div>
@@ -60,7 +58,13 @@ const Index = () => {
         <div key={demande.id} className='flex justify-center'>
           <div className='flex flex-row items-center gap-20 w-9/12 p-2 border-b border-gray-200 '>
             <div  className='w-2/12'>{demande.id}</div>
-            <div  className='w-2/12'>{demande.created_at}</div>
+            <div  className='w-2/12'>
+              {demande.isValide === 1 ? (
+                  <span className='text-green-500'>valide</span>
+                ) : (
+                  <span className='text-red-500'>non valide</span>
+                )}
+            </div>
             <div  className='w-2/12'>{demande.nom_benificier}</div>
             <div  className='w-2/12'>{demande.application_demandee}</div>
             {/* <div  className='w-2/12'>{demande.niveauTraitement}</div> */}
