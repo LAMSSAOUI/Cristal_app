@@ -65,7 +65,7 @@ const Index = () => {
                   <span className='text-red-500'>non valide</span>
                 )}
             </div>
-            <div  className='w-2/12'>{demande.nom_benificier}</div>
+            <div  className='w-2/12'>{demande.prenom_benificier}</div>
             <div  className='w-2/12'>{demande.application_demandee}</div>
             {/* <div  className='w-2/12'>{demande.niveauTraitement}</div> */}
             {/* <div  className=''>{demande.dateTraitement}</div> */}

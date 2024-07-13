@@ -9,8 +9,8 @@ export default async function handler(req, res) {
     }
 
     try {
-      const sapQuery = `SELECT COUNT(*) as sapDemandCount FROM sap WHERE user_id = ?`;
-      const sageQuery = `SELECT COUNT(*) as sageDemandCount FROM sage WHERE user_id = ?`;
+      const sapQuery = `SELECT COUNT(*) as sapDemandCount FROM demande WHERE application_demandee='Sap' and user_id = ?`;
+      const sageQuery = `SELECT COUNT(*) as sageDemandCount FROM demande WHERE application_demandee='Sage' and user_id = ?`;
 
       const [sapResults] = await executeQuery(sapQuery, [userId]);
       const [sageResults] = await executeQuery(sageQuery, [userId]);

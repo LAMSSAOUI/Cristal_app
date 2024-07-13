@@ -31,6 +31,27 @@ const index = () => {
     }
   }, [router.query]);
 
+  useEffect(() => {
+    const {user_id} = router.query;
+    if (user_id) {
+        fetch(`http://localhost:3000/api/users?id=${user_id}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data) {
+            console.log('user data ', data.username)
+            setPrenom(data.username)
+            setTypeProfil(data.role)
+          } else {
+            alert('User not found');
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching user data:', error);
+        });
+      
+    }
+  }, [router.query]);
+
 
   const DemandeList = ['Nouvelle Demande', 'Modification', 'Desactivation'];
   const direction_affectation_list = ['Direction Generale', 'Direction Achats', 'Direction Marketing' , 'Direction Commerciale' , 'Direction Production' , 'Direction Maintenance ' , 'Direction Juridique'];
@@ -121,7 +142,7 @@ const index = () => {
         <div className=' flex w-10/12 items-center justify-center mb-7'>
             <div className='flex flex-row '>
                 {/* First colunm  */}
-                <div className='flex flex-col gap-4 grow '>
+                <div className='flex flex-col gap-7 grow mb-2 '>
                     <div className='flex flex-row gap-4 '>
                         <div className='flex-1 pl-5  '>Demande</div>
                             <select 
@@ -136,15 +157,16 @@ const index = () => {
                             </select>
                     </div>
                     <div className='flex flex-row gap-4 '>
-                        <div className='flex-1 pl-5 '>Prenon du benificiaire</div>
+                        <div className='flex-1 pl-5 '>Nom et Prenon du benificiaire</div>
                         <input
                             type="text"
                             className=' w-80 outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1 '
                             value={prenon}
                             onChange={(e) => setPrenom(e.target.value)}
+                            disabled
                         />
                     </div>
-                    <div className='flex flex-row gap-4 '>
+                    {/* <div className='flex flex-row gap-4 '>
                         <div className='flex-1 pl-5 '>Fonction du benificiaire</div>
                         <input
                             type="text"
@@ -152,7 +174,7 @@ const index = () => {
                             value={fonctionBeneficiaire}
                             onChange={(e) => setFonctionBeneficiaire(e.target.value)}
                         />
-                    </div>
+                    </div> */}
                     <div className='flex flex-row gap-4 '>
                         <div className='flex-1 pl-5 '>Type du profil</div>
                         <input
@@ -160,6 +182,43 @@ const index = () => {
                             className=' w-80 outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1'
                             value={typeProfil}
                             onChange={(e) => setTypeProfil(e.target.value)}
+                            disabled
+                        />
+                    </div>
+                    
+                    {/* <div className='flex flex-row gap-4 '>
+                        <div className='flex-1 pl-5 '>Date d'activation</div>
+                        <input
+                            type="text"
+                            className=' w-80 outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1'
+                            value={dateActivation}
+                            onChange={(e) => setDateActivation(e.target.value)}
+                        />
+                    </div> */}
+                </div>
+
+                {/* Second colunm  */}
+                <div className='flex flex-col gap-7 grow'>
+                    <div className='flex flex-row gap-4 '>
+                        <div className='flex-1 pl-5 '>Societe</div>
+                        <select 
+                               id="selectOptions" 
+                               className="w-80 outline-none border-gray-300 border-2 rounded-lg pl-3"
+                               value={societe} 
+                               onChange={handleSocieteChange} 
+                            >
+                                  {Societe_list.map((option, index) => (
+                                    <option key={index} value={option}>{option}</option>
+                                  ))}
+                            </select>
+                    </div>
+                      <div className='flex flex-row gap-4 '>
+                        <div className='flex-1 pl-5 '>Site d'affectation</div>
+                        <input
+                            type="text"
+                            className=' w-80 outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1'
+                            value={siteAffectation}
+                            onChange={(e) => setSiteAffectation(e.target.value)}
                         />
                     </div>
                     <div className='flex flex-row gap-4 '>
@@ -175,33 +234,7 @@ const index = () => {
                                   ))}
                             </select>
                     </div>
-                    <div className='flex flex-row gap-4 '>
-                        <div className='flex-1 pl-5 '>Date d'activation</div>
-                        <input
-                            type="text"
-                            className=' w-80 outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1'
-                            value={dateActivation}
-                            onChange={(e) => setDateActivation(e.target.value)}
-                        />
-                    </div>
-                </div>
-
-                {/* Second colunm  */}
-                <div className='flex flex-col gap-4 grow'>
-                    <div className='flex flex-row gap-4 '>
-                        <div className='flex-1 pl-5 '>Societe</div>
-                        <select 
-                               id="selectOptions" 
-                               className="w-80 outline-none border-gray-300 border-2 rounded-lg pl-3"
-                               value={societe} 
-                               onChange={handleSocieteChange} 
-                            >
-                                  {Societe_list.map((option, index) => (
-                                    <option key={index} value={option}>{option}</option>
-                                  ))}
-                            </select>
-                    </div>
-                    <div className='flex flex-row gap-4 '>
+                    {/* <div className='flex flex-row gap-4 '>
                         <div className='flex-1 pl-5 '>Nom du benificiaire</div>
                         <input
                             type="text"
@@ -209,9 +242,9 @@ const index = () => {
                             value={nomBeneficiaire}
                             onChange={(e) => setNomBeneficiaire(e.target.value)}
                         />
-                    </div>
-                    <br/>
-                    <div className='flex flex-row gap-4 '>
+                    </div> */}
+                    {/* <br/> */}
+                    {/* <div className='flex flex-row gap-4 '>
                         <div className='flex-1 pl-5 '>Adresse e-mail</div>
                         <input
                             type="text"
@@ -219,17 +252,9 @@ const index = () => {
                             value={adresseEmail}
                             onChange={(e) => setAdresseEmail(e.target.value)}
                         />
-                    </div>
-                    <div className='flex flex-row gap-4 '>
-                        <div className='flex-1 pl-5 '>Site d'affectation</div>
-                        <input
-                            type="text"
-                            className=' w-80 outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1'
-                            value={siteAffectation}
-                            onChange={(e) => setSiteAffectation(e.target.value)}
-                        />
-                    </div>
-                    <div className='flex flex-row gap-4 '>
+                    </div> */}
+                  
+                    {/* <div className='flex flex-row gap-4 '>
                         <div className='flex-1 pl-5 '>Date de desactivation</div>
                         <input
                             type="text"
@@ -237,7 +262,7 @@ const index = () => {
                             value={dateDesactivation}
                             onChange={(e) => setDateDesactivation(e.target.value)}
                         />
-                    </div>
+                    </div> */}
                 </div>
             </div>
             
@@ -282,6 +307,26 @@ const index = () => {
                                 className=' w-72 outline-none border-gray-300 border-2 rounded-md pl-3 flex-1 '
                                 value={roleFonctionnel}
                                 onChange={(e) => setRoleFonctionnel(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className='flex flex-row justify-between'>
+                        <div className='flex flex-row gap-4 '>
+                            <div className='flex-1/2 pl-5 '>Date d'activation</div>
+                            <input
+                                type="text"
+                                className=' w-[235px] outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1'
+                                value={dateActivation}
+                                onChange={(e) => setDateActivation(e.target.value)}
+                            />
+                        </div>
+                        <div className='flex flex-row gap-4 '>
+                            <div className='flex-1/2 pl-5 '>Date de desactivation</div>
+                            <input
+                                type="text"
+                                className=' w-[250px] outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1 '
+                                value={dateDesactivation}
+                                onChange={(e) => setDateDesactivation(e.target.value)}
                             />
                         </div>
                     </div>

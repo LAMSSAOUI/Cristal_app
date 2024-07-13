@@ -57,11 +57,20 @@ const Navbar = ({id , user}) => {
       pathname: '/login',
     });
   };
+  const goTobase = () => {
+    router.push({
+      pathname: '/base',
+      query: { user_id, username },
+    });
+  }
 
   return (
     <div className='flex flex-row items-center justify-between font-semibold text-sm p-2 bg-black text-white'>
       <div className='flex flex-row items-center gap-4'>
-        <Image src="/images/logoNavbar 1.png" alt="" width={40} height={40} />
+        <div onClick={goTobase} style={{ cursor: 'pointer' }}>
+          <Image src="/images/logoNavbar 1.png" alt="" width={40} height={40} />
+        </div>
+        {/* <Image src="/images/logoNavbar 1.png" alt="" width={40} height={40} /> */}
         {user_id != '2' && <div onClick={goToHome} style={{ cursor: 'pointer' }}>Home</div>}
         <div onClick={goToListeDemande} style={{ cursor: 'pointer' }}>Demandes</div>
         <div onClick={goToSettings} style={{ cursor: 'pointer' }}>Settings</div>
