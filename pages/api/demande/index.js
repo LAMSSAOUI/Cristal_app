@@ -121,47 +121,55 @@ export async function saveFormDataToDatabase(formData) {
   if (typeof userId !== 'number') {
     throw new Error('Invalid user_id: expected number');
   }
+  
 
   try {
     // Construct your SQL query to insert data into your database table
-    const sqlQuery = `
-      INSERT INTO demande (
-        demande,
-        direction_affectation,
-        societe,
-        application_demandee,
-        prenom_benificier,
-        fonction_benificier,
-        type_profil,
-        date_activation,
-        nom_benificier,
-        adresse_email,
-        date_desactivation,
-        domaine,
-        role_fonctionnel,
-        user_id
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-    
-    // Execute the query with the data passed from the function parameter
-    const result = await executeQuery(sqlQuery, [
-        demande,
-        direction_affectation,
-        societe,
-        application_demande,
-        prenon,
-        fonctionBeneficiaire,
-        typeProfil,
-        dateActivation,
-        nomBeneficiaire,
-        adresseEmail,
-        dateDesactivation,
-        domaine,
-        roleFonctionnel,
-        userId
-    ]);
+    const query = `SELECT COUNT(*) as openDemandeCount FROM demande  WHERE user_id = ? AND (date_desactivation IS NULL OR date_desactivation > NOW()) and application_demandee= ? `;
+      
+    const [results] = await executeQuery(query, [userId , application_demande]);
 
-    return { success: true, message: 'Data saved successfully' };
+    if (results[0].openDemandeCount > 0) {
+      return { success: false, message: 'vous n avez pas le droit' };
+    }else {
+        const sqlQuery = `
+        INSERT INTO demande (
+          demande,
+          direction_affectation,
+          societe,
+          application_demandee,
+          prenom_benificier,
+          fonction_benificier,
+          type_profil,
+          date_activation,
+          nom_benificier,
+          adresse_email,
+          date_desactivation,
+          domaine,
+          role_fonctionnel,
+          user_id
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `;
+      
+      // Execute the query with the data passed from the function parameter
+      const result = await executeQuery(sqlQuery, [
+          demande,
+          direction_affectation,
+          societe,
+          application_demande,
+          prenon,
+          fonctionBeneficiaire,
+          typeProfil,
+          dateActivation,
+          nomBeneficiaire,
+          adresseEmail,
+          dateDesactivation,
+          domaine,
+          roleFonctionnel,
+          userId
+      ]);
+      return { success: true, message: 'Data saved successfully' };
+    }
   } catch (error) {
     console.error('Error saving data:', error);
     return { success: false, message: 'Failed to save data' };

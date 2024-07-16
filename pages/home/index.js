@@ -21,6 +21,7 @@ const index = () => {
   const [roleFonctionnel, setRoleFonctionnel] = useState('');
   const [username, setUsername] = useState('');
   const [user_id, setUser_id] = useState('');
+  const [hasDemande, setHasDemande] = useState(false); 
   const router = useRouter();
 
   useEffect(() => {
@@ -52,6 +53,27 @@ const index = () => {
     }
   }, [router.query]);
 
+  useEffect(() => {
+    // Middleware function to check if user has open demands
+    const checkDemandeStatus = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/activation?userId=${user_id}`);
+        if (response.ok) {
+          const data = await response.json();
+          const numberOfDemande = data.numberOfDemande || 0;
+          setHasDemande(numberOfDemande > 0);
+        } else {
+          console.error('Failed to fetch demande status');
+        }
+      } catch (error) {
+        console.error('Error checking demande status:', error);
+      }
+    };
+
+    if (user_id) {
+      checkDemandeStatus();
+    }
+  }, [user_id]);
 
   const DemandeList = ['Nouvelle Demande', 'Modification', 'Desactivation'];
   const direction_affectation_list = ['Direction Generale', 'Direction Achats', 'Direction Marketing' , 'Direction Commerciale' , 'Direction Production' , 'Direction Maintenance ' , 'Direction Juridique'];
@@ -121,7 +143,12 @@ const index = () => {
       .then(response => response.json())
       .then(data => {
         console.log('Success:', data);
-        alert('Success')
+        if (data.success) {
+          alert(`${data.message}`);
+          handleResetClick(); // Reset form fields or perform other actions
+        } else {
+          alert(`${data.message}`); // Display the message from the backend
+        }
         handleResetClick()
         // Handle success response (e.g., show success message)
       })
@@ -131,7 +158,7 @@ const index = () => {
       });
   };
 
-  return (
+    return (
     <div className='flex flex-col gap-5 mb-48'>
         <Navbar username={username} user_id={user_id} />
         <div className='text-center text-2xl'>Gestion des acces SAP / SAGE ERP X3 / BI</div>
@@ -314,16 +341,24 @@ const index = () => {
                         <div className='flex flex-row gap-4 '>
                             <div className='flex-1/2 pl-5 '>Date d'activation</div>
                             <input
-                                type="text"
+                                type="date"
+                                name="begin" placeholder="dd-mm-yyyy"
+                                min="1997-01-01" 
+                                max="2030-12-31"
                                 className=' w-[235px] outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1'
                                 value={dateActivation}
                                 onChange={(e) => setDateActivation(e.target.value)}
                             />
+                            {/* <input type="date" name="begin" placeholder="dd-mm-yyyy" 
+                             value="" min="1997-01-01" max="2030-12-31"></input> */}
                         </div>
                         <div className='flex flex-row gap-4 '>
                             <div className='flex-1/2 pl-5 '>Date de desactivation</div>
                             <input
-                                type="text"
+                                type="date"
+                                name="begin" placeholder="dd-mm-yyyy"
+                                min="1997-01-01" 
+                                max="2030-12-31"
                                 className=' w-[250px] outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1 '
                                 value={dateDesactivation}
                                 onChange={(e) => setDateDesactivation(e.target.value)}
