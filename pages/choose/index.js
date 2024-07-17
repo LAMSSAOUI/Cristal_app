@@ -7,6 +7,7 @@ const Index = () => {
   const [path, setPath] = useState('');
   const [user_id, setUser_id] = useState('');
   const [demande , setDemandeId]=useState('');
+  const [demandeValidation , setDemandeValidation] = useState(0);
 
 
 
@@ -18,6 +19,20 @@ const Index = () => {
     }
   }, [router.query]);
 
+  useEffect(() => {
+    if (demande) {
+      fetch(`http://localhost:3000/api/demande?demande_id=${demande}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log('Fetched demande:', data.isValide);
+          setDemandeValidation(data.isValide);
+        })
+        .catch(error => {
+          console.error('Error fetching demande:', error);
+        });
+    }
+  }, [demande]);
+
   const handleAppliquerClick = () => {
     router.push({
         pathname: `/${path}`,
@@ -25,7 +40,7 @@ const Index = () => {
       });
   };
 
-
+  if (!demandeValidation) {
   return (
     <div>
       <header className='sticky top-0 z-50'><Navbar /></header>
@@ -80,6 +95,17 @@ const Index = () => {
       </div>
     </div>
   );
-};
+}else if (demandeValidation) {
+  return (
+    <div className='h-screen'>
+        <header className='sticky top-0 z-50'><Navbar /></header>
+        <div className="flex justify-center items-center"  style={{ height: 'calc(100vh - 64px)' }}>
+          <p className='bold text-2xl '>La demande et deja valide</p>
+        </div>
+    </div>
+    
+  );
+}
+}
 
 export default Index;
