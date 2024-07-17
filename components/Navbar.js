@@ -57,12 +57,21 @@ const Navbar = ({id , user}) => {
       pathname: '/login',
     });
   };
+
   const goTobase = () => {
-    router.push({
-      pathname: '/base',
-      query: { user_id, username },
-    });
-  }
+    if (user_id == 2) {
+      router.push({
+        pathname: '/baseAdmin',
+        query: { user_id, username },
+      });
+    } else {
+      router.push({
+        pathname: '/base',
+        query: { user_id, username },
+      });
+    }
+  };
+  
 
   return (
     <div className='flex flex-row items-center justify-between font-semibold text-sm p-2 bg-black text-white'>

@@ -144,10 +144,10 @@ const index = () => {
       .then(data => {
         console.log('Success:', data);
         if (data.success) {
-          alert(`${data.message}`);
+          alert(` ${data.message}`);
           handleResetClick(); // Reset form fields or perform other actions
         } else {
-          alert(`${data.message}`); // Display the message from the backend
+          alert(` ${data.message}`); // Display the message from the backend
         }
         handleResetClick()
         // Handle success response (e.g., show success message)

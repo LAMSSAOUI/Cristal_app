@@ -25,7 +25,7 @@ export default function Home() {
         console.log('the response is', result)
         if (result.role === 'admin') {
           router.push({
-            pathname: '/base',
+            pathname: '/baseAdmin',
             query: { user_id: result.id , username : result.username }, 
           });
         } else {
