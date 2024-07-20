@@ -71,6 +71,12 @@ const Navbar = ({id , user}) => {
       });
     }
   };
+  const goToApplication = () => {
+    router.push({
+      pathname: '/gestionApplication',
+      query: { user_id, username },
+    });
+  };
   
 
   return (
@@ -84,6 +90,7 @@ const Navbar = ({id , user}) => {
         <div onClick={goToListeDemande} style={{ cursor: 'pointer' }}>Demandes</div>
         <div onClick={goToSettings} style={{ cursor: 'pointer' }}>Settings</div>
         {user_id === '2' && (<div onClick={goToComptes} style={{ cursor: 'pointer' }}>Comptes</div>)}
+        {user_id === '2' && (<div onClick={goToApplication} style={{ cursor: 'pointer' }}>Applications</div>)}
       </div>
       <div className='italic'>Identity Access Manager</div>
       <div className='flex flex-row items-center gap-4 italic'>
