@@ -57,3 +57,13 @@ CREATE TABLE SAGE (
     date_desactivation VARCHAR(255)
 );
 ALTER TABLE demande ADD COLUMN isValide BOOLEAN DEFAULT FALSE;
+
+
+CREATE TABLE Applications (
+    id SERIAL PRIMARY KEY,
+    nomApp VARCHAR(255) NOT NULL
+);
+
+
+
+
