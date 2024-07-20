@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import AddUserModal from '../../components/UserModal';
+import AddApplicationModal from '../../components/ApplicationModal';
 import Navbar from '../../components/Navbar';
 
 const Index = () => {
   const router = useRouter();
-  const [utilisateurs, setUtilisateurs] = useState([]);
+  const [Applications, setApplications] = useState([]);
   const [user_id, setUser_id] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -18,37 +18,51 @@ const Index = () => {
     }
   }, [router.query]);
 
+
   useEffect(() => {
-    fetch(`http://localhost:3000/api/users`)
-      .then(response => response.json())
-      .then(data => {
-        setUtilisateurs(data); 
-      })
-      .catch(error => {
-        console.error('Error fetching utilisateurs:', error);
-      });
+    fetchApplications();
   }, [user_id]);
 
-  const handleAddUserClick = () => {
+  // useEffect(() => {
+  //   fetch(`http://localhost:3000/api/application`)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       setApplications(data); 
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching Applications:', error);
+  //     });
+  // }, [user_id]);
+
+  const fetchApplications = ()=> {
+    fetch(`http://localhost:3000/api/application`)
+      .then(response => response.json())
+      .then(data => {
+        setApplications(data); 
+      })
+      .catch(error => {
+        console.error('Error fetching Applications:', error);
+      });
+  }
+  const handleAddApplicationClick = () => {
     setIsModalOpen(true);
   };
 
-  const handleSaveUser = (newUser) => {
-    fetch('http://localhost:3000/api/users', {
+  const handleSaveApplication = (newApplication) => {
+    console.log('newApplication', newApplication);
+    fetch('http://localhost:3000/api/application', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newUser),
+      body: JSON.stringify(newApplication),
     })
       .then(response => response.json())
       .then(data => {
-        if (data.success) {
-          setUtilisateurs([...utilisateurs, data.user]);
+          setApplications([...Applications, data.user]);
           setIsModalOpen(false);
-        } else {
-          alert('Failed to add user');
-        }
+          alert(' Application added seccusfully.');
+          fetchApplications() 
       })
       .catch(error => {
         console.error('Error adding user:', error);
@@ -57,7 +71,7 @@ const Index = () => {
 
   const handleEditUserClick = (id) => {
     console.log('the id is in update',id)
-    fetch(`http://localhost:3000/api/users?id=${id}`)
+    fetch(`http://localhost:3000/api/application?id=${id}`)
       .then(response => response.json())
       .then(data => {
         if (data) {
@@ -73,17 +87,22 @@ const Index = () => {
   };
 
   const handleUpdateUser = (updatedUser) => {
-    fetch(`http://localhost:3000/api/users?id=${updatedUser.id}`, {
+    console.log('Updating user', updatedUser);
+    
+    // Extract only the NomApplication field
+    const body = JSON.stringify({ nomApp: updatedUser.NomApplication });
+    
+    fetch(`http://localhost:3000/api/application?id=${updatedUser.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedUser),
+      body: body, // Send only NomApplication in the body
     })
       .then(response => response.json())
       .then(data => {
         if (data) {
-          fetchUsers();
+          fetchApplications()
           setIsEditModalOpen(false);
         } else {
           alert('Failed to update user');
@@ -93,16 +112,17 @@ const Index = () => {
         console.error('Error updating user:', error);
       });
   };
+  
 
   const handleDeleteUser = (id) => {
-    fetch(`http://localhost:3000/api/users?id=${id}`, {
+    fetch(`http://localhost:3000/api/application?id=${id}`, {
       method: 'DELETE',
     })
       .then(response => response.json())
       .then(data => {
-        if (data.success) {
-          const updatedUtilisateurs = utilisateurs.filter(user => user.id !== id);
-          setUtilisateurs(updatedUtilisateurs);
+        if (data) {
+          const updatedApplications = Applications.filter(user => user.id !== id);
+          setApplications(updatedApplications);
           alert('User deleted successfully');
         } else {
           alert('Failed to delete user');
@@ -118,14 +138,14 @@ const Index = () => {
       <Navbar  user_id={user_id}  />
       <div className='text-center text-2xl font-semibold'>Gestion des Applications</div>
       <div>
-        <AddUserModal
+        <AddApplicationModal
           isOpen={isModalOpen}
           onRequestClose={() => setIsModalOpen(false)}
-          onSave={handleSaveUser}
+          onSave={handleSaveApplication}
         />
         {/* Edit User Modal */}
         {isEditModalOpen && (
-          <AddUserModal
+          <AddApplicationModal
             isOpen={isEditModalOpen}
             onRequestClose={() => setIsEditModalOpen(false)}
             onSave={handleUpdateUser}
@@ -135,7 +155,7 @@ const Index = () => {
       </div>
       <div className='flex flex-col gap-3 '>
         <div className='w-11/12 flex justify-end '>
-          <div className='border-2 border-[#62CA76] rounded px-4 py-2 cursor-pointer w-44 text-center mr-16' onClick={handleAddUserClick}>
+          <div className='border-2 border-[#62CA76] rounded px-4 py-2 cursor-pointer w-44 text-center mr-16' onClick={handleAddApplicationClick}>
             Ajouter
           </div> 
         </div>
@@ -147,16 +167,16 @@ const Index = () => {
           </div>
         </div>
       </div>
-            {utilisateurs && utilisateurs.map(demande => (
-                <div key={demande.id} className='flex justify-center '>
+            {Applications && Applications.map(app => (
+                <div key={app} className='flex justify-center '>
                 <div className='flex flex-row items-center gap-20 w-9/12 h-15  p-2 border-b border-gray-200 '>
-                    {demande ? (
+                    {app ? (
                     <>
-                        <div className='w-2/12'>{demande.id}</div>
-                        <div className='w-2/12 ml-5'>{demande.role}</div>
+                        <div className='w-2/12'>{app.id}</div>
+                        <div className='w-2/12 ml-5'>{app.nomApp}</div>
                         <div className='w-full flex flex-row gap-16 justify-around'>
-                            <div className=' w-40 border-2 border-[#3E6BEC] text-black rounded px-4 py-2 cursor-pointer text-center ' onClick={() => handleEditUserClick(demande.id)}>Modifier</div> 
-                            <div className=' w-40 border-2 border-[#EB444B] text-black rounded px-4 py-2 cursor-pointer text-center' onClick={() => handleDeleteUser(demande.id)}>Supprimer</div> 
+                            <div className=' w-40 border-2 border-[#3E6BEC] text-black rounded px-4 py-2 cursor-pointer text-center ' onClick={() => handleEditUserClick(app.id)}>Modifier</div> 
+                            <div className=' w-40 border-2 border-[#EB444B] text-black rounded px-4 py-2 cursor-pointer text-center' onClick={() => handleDeleteUser(app.id)}>Supprimer</div> 
                         </div>
                         
                     </>

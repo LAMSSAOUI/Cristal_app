@@ -43,8 +43,8 @@ const getApplicationById = async (id, res) => {
 }
 
 const addApplication = async (event, res) => {
-    const { nomApp } = event.body;
-  
+    const { NomApplication } = event.body;
+    const nomApp = NomApplication
     if (!nomApp) {
       return res.status(400).json({ message: 'All fields are required' });
     }
@@ -80,7 +80,8 @@ const addApplication = async (event, res) => {
   };
   
   const updateApplication = async (event, res) => {
-    const { id, nomApp } = event.body;
+    const { id } = event.query;
+    const { nomApp } = event.body;
   
     if (!id || !nomApp) {
       return res.status(400).json({ message: 'All fields are required' });
