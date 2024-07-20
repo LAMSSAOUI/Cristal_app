@@ -64,6 +64,9 @@ CREATE TABLE Applications (
     nomApp VARCHAR(255) NOT NULL
 );
 
+INSERT INTO applications (nomApp) VALUES ('SAP');
+INSERT INTO applications (nomApp) VALUES ('SAGE');
+
 
 
 
