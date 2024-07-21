@@ -22,6 +22,8 @@ const index = () => {
   const [username, setUsername] = useState('');
   const [user_id, setUser_id] = useState('');
   const [hasDemande, setHasDemande] = useState(false); 
+  const [Applications, setApplications] = useState([]);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -157,6 +159,23 @@ const index = () => {
         // Handle error (e.g., show error message)
       });
   };
+  useEffect(() => {
+    fetchApplications();
+  }, [user_id]);
+
+
+
+  const fetchApplications = ()=> {
+    fetch(`http://localhost:3000/api/application`)
+      .then(response => response.json())
+      .then(data => {
+        setApplications(data); 
+        console.log('application', data)
+      })
+      .catch(error => {
+        console.error('Error fetching Applications:', error);
+      });
+  }
 
     return (
     <div className='flex flex-col gap-5 mb-48'>
@@ -312,8 +331,8 @@ const index = () => {
                                            value={application_demande} 
                                            onChange={handleapplication_demandeChange} 
                                         >
-                                              {application_demande_list.map((option, index) => (
-                                                <option key={index} value={option}>{option}</option>
+                                              {Applications && Applications.map((option) => (
+                                                <option key={option.id} value={option.nomApp}>{option.nomApp}</option>
                                               ))}
                                         </select>
                     </div>

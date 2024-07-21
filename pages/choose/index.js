@@ -8,6 +8,7 @@ const Index = () => {
   const [user_id, setUser_id] = useState('');
   const [demande , setDemandeId]=useState('');
   const [demandeValidation , setDemandeValidation] = useState(0);
+  const [Applications, setApplications] = useState([]);
 
 
 
@@ -39,7 +40,31 @@ const Index = () => {
         query: { user_id: user_id , demande_id: demande}, 
       });
   };
+  useEffect(() => {
+    fetchApplications();
+  }, [user_id]);
 
+
+
+  const fetchApplications = ()=> {
+    fetch(`http://localhost:3000/api/application`)
+      .then(response => response.json())
+      .then(data => {
+        setApplications(data); 
+        console.log('application', data)
+      })
+      .catch(error => {
+        console.error('Error fetching Applications:', error);
+      });
+  }
+
+  const handleApplicationClick = (nomApp) => {
+    router.push({
+      pathname: '/creationApplication',
+      query: { application: nomApp, user_id: user_id, demande_id: demande },
+    });
+  };
+  
   if (!demandeValidation) {
   return (
     <div>
@@ -66,20 +91,25 @@ const Index = () => {
             </div>
             {user_id && user_id == '2' && (
               <>
-                <div className="relative mb-4">
-                  <input className="peer hidden" id="radio_sap" type="radio" name="radio" onClick={() => setPath('demandeSap')} />
-                  <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>
-                  <label className="flex cursor-pointer flex-col rounded-2xl border border-gray-300 bg-slate-100/80 p-4 pr-8 sm:pr-16" htmlFor="radio_sap">
-                    <span className="mb-2 text-lg font-semibold">Creation demande SAP</span>
-                  </label>
-                </div>
-                <div className="relative mb-4">
-                  <input className="peer hidden" id="radio_sage" type="radio" name="radio" onClick={() => setPath('demandeSage')} />
-                  <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>
-                  <label className="flex cursor-pointer flex-col rounded-2xl border border-gray-300 bg-slate-100/80 p-4 pr-8 sm:pr-16" htmlFor="radio_sage">
-                    <span className="mb-2 text-lg font-semibold">Creation demande SAGE</span>
-                  </label>
-                </div>
+               {Applications.map((app, index) => (
+                  <div key={index} className="relative mb-4">
+                    <input 
+                      className="peer hidden" 
+                      id={`radio_${app.nomApp}`} 
+                      type="radio" 
+                      name="radio" 
+                      onClick={() => handleApplicationClick(app.nomApp)}
+                    />
+                    <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>
+                    <label 
+                      className="flex cursor-pointer flex-col rounded-2xl border border-gray-300 bg-slate-100/80 p-4 pr-8 sm:pr-16" 
+                      htmlFor={`radio_${app.nomApp}`}
+                    >
+                      <span className="mb-2 text-lg font-semibold">Creation demande {app.nomApp}</span>
+                    </label>
+                  </div>
+                ))}
+                
                 <div className="relative mb-4">
                   <input className="peer hidden" id="radio_valide" type="radio" name="radio" onClick={() => setPath('valider')} />
                   <span className="absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white peer-checked:border-gray-900"></span>

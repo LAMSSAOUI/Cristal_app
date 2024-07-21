@@ -18,12 +18,7 @@ const Index = () => {
     }
   }, [router.query]);
 
-
-  useEffect(() => {
-    fetchApplications();
-  }, [user_id]);
-
-  // useEffect(() => {
+    // useEffect(() => {
   //   fetch(`http://localhost:3000/api/application`)
   //     .then(response => response.json())
   //     .then(data => {
@@ -33,6 +28,12 @@ const Index = () => {
   //       console.error('Error fetching Applications:', error);
   //     });
   // }, [user_id]);
+
+  useEffect(() => {
+    fetchApplications();
+  }, [user_id]);
+
+
 
   const fetchApplications = ()=> {
     fetch(`http://localhost:3000/api/application`)
