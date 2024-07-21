@@ -20,14 +20,14 @@ export default function Demande() {
   const router = useRouter();
 
   useEffect(() => {
-    const { username, user_id , application} = router.query;
-    if (username && user_id) {
-      setUsername(username);
+    const {  user_id , application} = router.query;
+    if (user_id) {
       setUser_id(user_id);
-      setApplication(application)
-      console.log('application', application)
+      setApplication(application);
+      console.log('application', application);
     }
   }, [router.query]);
+  
 
   const DemandeList = ['Nouvelle Demande', 'Modification', 'Desactivation'];
   const direction_affectation_list = ['Direction Generale', 'Direction Achats', 'Direction Marketing', 'Direction Commerciale', 'Direction Production', 'Direction Maintenance', 'Direction Juridique'];
@@ -48,8 +48,21 @@ export default function Demande() {
   }, [user_id, router.query.demande_id]);
 
   const handleSaveClick = () => {
-    const data = { ...demandeInfo, user_id };
-    fetch('http://localhost:3000/api/sap', {
+    // Log to check values of user_id and application
+    console.log('User ID:', user_id);
+    console.log('Application:', application);
+  
+    // Ensure user_id and application are available
+    if (!user_id || !application) {
+      console.error('Error: user_id or application is missing');
+      return; // Exit function if critical data is missing
+    }
+  
+    const data = { ...demandeInfo, user_id, application };
+    
+    console.log('Data being sent:', data); // Log the data object to ensure it's correctly structured
+  
+    fetch('http://localhost:3000/api/applicationAdmin', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,6 +79,7 @@ export default function Demande() {
         console.error('Error:', error);
       });
   };
+  
 
   const handleResetClick = () => {
     setDemandeInfo({
@@ -142,24 +156,6 @@ export default function Demande() {
                         <option key={index} value={option}>{option}</option>
                       ))}
                     </select>
-                  </div>
-                  <div className='flex flex-row gap-4'>
-                    <div className='flex-1 pl-5'>Nom du bénéficiaire</div>
-                    <input
-                      type="text"
-                      className='w-80 outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1'
-                      value={demandeInfo.nom_benificier}
-                      onChange={(e) => handleChange('nom_beneficiaire', e.target.value)}
-                    />
-                  </div>
-                  <div className='flex flex-row gap-4'>
-                    <div className='flex-1 pl-5'>Adresse email</div>
-                    <input
-                      type="text"
-                      className='w-80 outline-none border-gray-300 border-2 rounded-lg pl-3 flex-1'
-                      value={demandeInfo.adresse_email}
-                      onChange={(e) => handleChange('adresse_email', e.target.value)}
-                    />
                   </div>
                   <div className='flex flex-row gap-4'>
                     <div className='flex-1 pl-5'>Date de désactivation</div>
