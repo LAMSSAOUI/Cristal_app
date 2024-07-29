@@ -172,7 +172,7 @@ const Index = () => {
                     <>
                         <div className='w-2/12'>{demande.id}</div>
                         <div className='w-2/12'>{demande.login}</div>
-                        <div className='w-2/12'>{demande.password}</div>
+                        <div className='w-2/12'>{demande.nom}</div>
                         <div className='w-2/12'>{demande.role}</div>
                         <div className='border-2 border-[#3E6BEC] text-black rounded px-4 py-2 cursor-pointer' onClick={() => handleEditUserClick(demande.id)}>Modifier</div> 
                         <div className='border-2 border-[#EB444B] text-black rounded px-4 py-2 cursor-pointer' onClick={() => handleDeleteUser(demande.id)}>Supprimer</div> 

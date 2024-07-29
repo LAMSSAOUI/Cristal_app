@@ -96,7 +96,7 @@ const Index = () => {
         <div className="grid grid-cols-8 pt-3 sm:grid-cols-10">
           <div className="relative my-4 w-56 sm:hidden">
             <input className="peer hidden" type="checkbox" name="select-1" id="select-1" />
-            <label htmlFor="select-1" className="flex w-full cursor-pointer select-none rounded-lg border p-2 px-3 text-sm text-gray-700 ring-blue-700 peer-checked:ring">Accounts </label>
+            <label htmlFor="select-1" className="flex w-full cursor-pointer select-none rounded-lg border p-2 px-3 text-sm text-gray-700 bg-red-700 peer-checked:ring">Accounts </label>
             <svg xmlns="http://www.w3.org/2000/svg" className="pointer-events-none absolute right-0 top-3 ml-auto mr-5 h-4 text-slate-700 transition peer-checked:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
@@ -109,7 +109,7 @@ const Index = () => {
     
           <div className="col-span-2 hidden sm:block">
             <ul>
-              <li className="mt-5 cursor-pointer border-l-2 border-l-blue-700 px-2 py-2 font-semibold text-blue-700 transition hover:border-l-blue-700 hover:text-blue-700">Profile</li>
+              <li className="mt-5 cursor-pointer border-l-2 border-l-red-700 px-2 py-2 font-semibold  transition  ">Profile</li>
             </ul>
           </div>
     
@@ -158,7 +158,7 @@ const Index = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
               </svg>
             </div>
-            <button onClick={handleUpdateUser} className=" rounded-lg bg-blue-600 px-4 py-2 text-white mt-5">Update Password</button>
+            <button onClick={handleUpdateUser} className=" rounded-lg bg-red-700 px-4 py-2 text-white mt-5">Update Password</button>
             <hr className="mt-4 mb-8" />
           </div>
         </div>
