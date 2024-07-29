@@ -30,6 +30,8 @@ const AddUserModal = ({ isOpen, onRequestClose, onSave, initialData }) => {
   }, [initialData]);
 
   const societeOptions=['soc1', 'soc2', 'soc3'];
+  const ProfileOptions=['interne' , 'externe'];
+  const Roles=['Admin', 'manager']
 
   const handleSave = () => {
     const userData = {
@@ -92,6 +94,17 @@ const AddUserModal = ({ isOpen, onRequestClose, onSave, initialData }) => {
       </div>
       <div className='input-container flex flex-col gap-3'>
         <label>Role</label>
+        <select
+          value={role}
+          className='w-72 outline-none border-gray-300 border-2 rounded-lg pl-3'
+          onChange={(e) => setRole(e.target.value)}
+        >
+          {Roles.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
         <input
           type="text"
           value={role}
@@ -152,12 +165,23 @@ const AddUserModal = ({ isOpen, onRequestClose, onSave, initialData }) => {
       </div>
       <div className='input-container flex flex-col gap-3'>
         <label>Type de Profile</label>
-        <input
+        <select
+          value={typeDeProfile}
+          className='w-72 outline-none border-gray-300 border-2 rounded-lg pl-3'
+          onChange={(e) => setTypeDeProfile(e.target.value)}
+        >
+          {ProfileOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+        {/* <input
           type="text"
           value={typeDeProfile}
           className='w-72 outline-none border-gray-300 border-2 rounded-lg pl-3'
           onChange={(e) => setTypeDeProfile(e.target.value)}
-        />
+        /> */}
       </div>
       <div className='input-container flex flex-col gap-3'>
         <label>Département</label>
