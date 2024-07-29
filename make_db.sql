@@ -1,12 +1,26 @@
 CREATE DATABASE lesieur;
 use lesieur;
-CREATE TABLE users (
+-- CREATE TABLE users (
+--     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     username VARCHAR(50) NOT NULL UNIQUE,
+--     password VARCHAR(255) NOT NULL,
+--     role VARCHAR(255) NOT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+CREATE TABLE utilisateurs (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) NOT NULL UNIQUE,
+    login VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role VARCHAR(255) NOT NULL,
+    nom VARCHAR(50) NOT NULL,
+    prenom VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    societe VARCHAR(100),
+    type_de_profile VARCHAR(50),
+    departement VARCHAR(50),
+    role VARCHAR(50) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 CREATE TABLE demande (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -28,11 +42,21 @@ CREATE TABLE demande (
     
 );
 
-INSERT INTO users (id , username, password, role, created_at) VALUES (2 , 'admin', 'admin_password_hash',  'admin', CURRENT_TIMESTAMP);
+INSERT INTO utilisateurs (id, login, password, nom, prenom, email, societe, type_de_profile, departement, role, created_at) 
+VALUES (2, 'admin', 'admin_password_hash', 'NomAdmin', 'PrenomAdmin', 'admin@example.com', 'SocieteAdmin', 'admin', 'DepartementAdmin', 'admin', CURRENT_TIMESTAMP);
 
-INSERT INTO users (username, password, role, created_at) VALUES ('user1', 'user1_password_hash', 'user', CURRENT_TIMESTAMP);
+INSERT INTO utilisateurs (login, password, nom, prenom, email, societe, type_de_profile, departement, role, created_at) 
+VALUES ('user1', 'user1_password_hash', 'NomUser1', 'PrenomUser1', 'user1@example.com', 'SocieteUser1', 'manager', 'DepartementUser1', 'user', CURRENT_TIMESTAMP);
 
-INSERT INTO users (username, password, role, created_at) VALUES ('user2', 'user2_password_hash',  'user', CURRENT_TIMESTAMP);
+INSERT INTO utilisateurs (login, password, nom, prenom, email, societe, type_de_profile, departement, role, created_at) 
+VALUES ('user2', 'user2_password_hash', 'NomUser2', 'PrenomUser2', 'user2@example.com', 'SocieteUser2', 'manager', 'DepartementUser2', 'user', CURRENT_TIMESTAMP);
+
+
+-- INSERT INTO users (id , username, password, role, created_at) VALUES (2 , 'admin', 'admin_password_hash',  'admin', CURRENT_TIMESTAMP);
+
+-- INSERT INTO users (username, password, role, created_at) VALUES ('user1', 'user1_password_hash', 'user', CURRENT_TIMESTAMP);
+
+-- INSERT INTO users (username, password, role, created_at) VALUES ('user2', 'user2_password_hash',  'user', CURRENT_TIMESTAMP);
 
 CREATE TABLE SAP (
     id SERIAL PRIMARY KEY,

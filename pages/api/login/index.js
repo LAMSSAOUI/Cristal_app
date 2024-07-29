@@ -14,7 +14,7 @@ export default async function handler(event, res) {
 
 export async function findUserByEmail(username) {
   try {
-    const query = ` SELECT id , username , password , role FROM users WHERE username = ?`;
+    const query = ` SELECT id , login , password , role FROM utilisateurs WHERE login = ?`;
     const [results, fields] = await executeQuery(query,[username]);
     return results[0];
   } catch (error) {
@@ -25,7 +25,7 @@ export async function findUserByEmail(username) {
 
 
 const getAllUsers = async (event , res) => {
-    const sqlQueryDep = "SELECT * FROM users ";
+    const sqlQueryDep = "SELECT * FROM utilisateurs ";
   
     const id = event.query.dept_id;
     const [resultsDep, fields] = await executeQuery(sqlQueryDep,[id]);
