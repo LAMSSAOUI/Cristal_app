@@ -23,6 +23,7 @@ const index = () => {
   const [user_id, setUser_id] = useState('');
   const [hasDemande, setHasDemande] = useState(false); 
   const [Applications, setApplications] = useState([]);
+  const [Droits, setDroits] = useState([]);
 
   const router = useRouter();
 
@@ -161,6 +162,7 @@ const index = () => {
   };
   useEffect(() => {
     fetchApplications();
+    fetchDroits();
   }, [user_id]);
 
 
@@ -171,6 +173,18 @@ const index = () => {
       .then(data => {
         setApplications(data); 
         console.log('application', data)
+      })
+      .catch(error => {
+        console.error('Error fetching Applications:', error);
+      });
+  }
+
+  const fetchDroits = ()=> {
+    fetch(`http://localhost:3000/api/droits`)
+      .then(response => response.json())
+      .then(data => {
+        setDroits(data[0]); 
+        console.log('droits', data[0])
       })
       .catch(error => {
         console.error('Error fetching Applications:', error);
@@ -197,9 +211,11 @@ const index = () => {
                                value={demande} 
                                onChange={handleDemandeChange} 
                             >
-                                  {DemandeList.map((option, index) => (
-                                    <option key={index} value={option}>{option}</option>
-                                  ))}
+                                  {Droits.map((option) => (
+                                      <option key={option.id} value={option.Droits}>
+                                        {option.Droits}
+                                      </option>
+                                    ))}
                             </select>
                     </div>
                     <div className='flex flex-row gap-4 '>

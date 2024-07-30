@@ -18,14 +18,17 @@ export default async function handler(req, res) {
     }
   } else if (req.method === 'GET') {
     try {
-      const { user_id } = req.query;
-      if (user_id != 2) {
-        const userDemands = await getUserDemandsFromDatabase(user_id);
-        res.status(200).json(userDemands);
-      } else {
-        const formData = await getAllFormDataFromDatabase();
-        res.status(200).json(formData);
-      }
+        const { id, user_id } = req.query;
+        if (id) {
+          const droit = await getDroitById(id);
+          res.status(200).json(droit);
+        } else if (user_id != 2) {
+            const userDemands = await getUserDemandsFromDatabase(user_id);
+            res.status(200).json(userDemands);
+        } else  {
+            const formData = await getAllFormDataFromDatabase();
+            res.status(200).json(formData);
+        }
     } catch (error) {
       console.error('Error in GET API handler:', error);
       res.status(500).json({ message: 'Internal server error' });
@@ -139,3 +142,13 @@ export async function deleteFormDataFromDatabase(id) {
     }
   }
   
+  export async function getDroitById(id) {
+    try {
+      const sqlQuery = `SELECT * FROM droits WHERE id = ?`;
+      const results = await executeQuery(sqlQuery, [id]);
+      return results[0]; // Return the first result (should be one row)
+    } catch (error) {
+      console.error('Error fetching data by id:', error);
+      throw error;
+    }
+  }
